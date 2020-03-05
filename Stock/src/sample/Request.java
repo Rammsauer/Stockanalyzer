@@ -2,6 +2,10 @@ package sample;
 
 import java.io.*;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Request {
 
@@ -18,6 +22,9 @@ public class Request {
     private String[] price2;
     private String[] branche;
     private String[] percent2;
+
+    //Nach 18 bis 9 Uhr ist Börsenschluss; Am Samstag und Sonntag wird nicht gehandelt
+
 
     public Request(URL url){
         this.url = url;
@@ -71,44 +78,17 @@ public class Request {
     }
 
     public void DownloadSite() {
-        try {
-            InputStream in = new BufferedInputStream(url.openStream());
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            byte[] buf = new byte[1024];
-            int n = 0;
-            while (-1 != (n = in.read(buf))){
-                out.write(buf, 0, n);
-            }
-            out.close();
-            in.close();
-            byte[] response = out.toByteArray();
-            FileOutputStream fos = new FileOutputStream("URL.html");
-            fos.write(response);
-            fos.close();
-        }
-        catch (IOException e){
+        System.out.println();
+        Download(url, "URL.html");
 
-        }
     }
 
     public void DownloadImage(){
         try{
             String[] s = {"1D", "5D", "10D", "3M", "6M", "1Y", "5Y"};
             for(int i = 0; i < s.length; i++) {
-                URL url1 = new URL("https://charts.comdirect.de/charts/rebrush/design_small.ewf.chart?DENSITY=2&HEIGHT=173&ID_NOTATION=" + Notation + "&TIME_SPAN=" + s[i] + "&TYPE=MOUNTAIN&WIDTH=256&WITH_EARNINGS=1");
-                InputStream in = new BufferedInputStream(url1.openStream());
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
-                byte[] buf = new byte[1024];
-                int n = 0;
-                while (-1 != (n = in.read(buf))) {
-                    out.write(buf, 0, n);
-                }
-                out.close();
-                in.close();
-                byte[] response = out.toByteArray();
-                FileOutputStream fos = new FileOutputStream(s[i]);
-                fos.write(response);
-                fos.close();
+                URL urll = new URL("https://charts.comdirect.de/charts/rebrush/design_small.ewf.chart?DENSITY=2&HEIGHT=173&ID_NOTATION=" + Notation + "&TIME_SPAN=" + s[i] + "&TYPE=MOUNTAIN&WIDTH=256&WITH_EARNINGS=1");
+                checkDown(urll, "Images/ISIN Images/" + s[i] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
             }
 
         }
@@ -124,20 +104,8 @@ public class Request {
             String[] t = {"1D", "5D", "10D", "3M", "6M", "1Y", "5Y"};
             for(int i = 0; i < s.length; i++) {
                 for(int n = 0; n < t.length; n++) {
-                    URL url1 = new URL("https://charts.comdirect.de/charts/rebrush/design_small_wide.informer.chart?HEIGHT=264&ID_NOTATION=" + s[i] + "&SHOWHL=0&TIME_SPAN=" + t[n] + "&TYPE=MOUNTAIN&WIDTH=450");
-                    InputStream in = new BufferedInputStream(url1.openStream());
-                    ByteArrayOutputStream out = new ByteArrayOutputStream();
-                    byte[] buf = new byte[1024];
-                    int k = 0;
-                    while (-1 != (k = in.read(buf))) {
-                        out.write(buf, 0, k);
-                    }
-                    out.close();
-                    in.close();
-                    byte[] response = out.toByteArray();
-                    FileOutputStream fos = new FileOutputStream(g[i]+t[n]);
-                    fos.write(response);
-                    fos.close();
+                    URL urll = new URL("https://charts.comdirect.de/charts/rebrush/design_small_wide.informer.chart?HEIGHT=264&ID_NOTATION=" + s[i] + "&SHOWHL=0&TIME_SPAN=" + t[n] + "&TYPE=MOUNTAIN&WIDTH=450");
+                    checkDown(urll, "Images/Stock Images/" + g[i] + "/" + g[i] + t[n] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
                 }
             }
 
@@ -151,8 +119,23 @@ public class Request {
         try{
             s = s.replace(" ", "+");
             s = s.toUpperCase();
-            URL url1 = new URL("https://kurse.boerse.ard.de/ard/kurse_einzelkurs_suche.htn?suchbegriff=" + s + "&seite=suche&exitPoint=all&tabSearch=securityCategoryCode~SHARE");
-            InputStream in = new BufferedInputStream(url1.openStream());
+            URL urll = new URL("https://kurse.boerse.ard.de/ard/kurse_einzelkurs_suche.htn?suchbegriff=" + s + "&seite=suche&exitPoint=all&tabSearch=securityCategoryCode~SHARE");
+            Download(urll, "SearchURL.html");
+            search.searchsearch();
+            name = search.getname();
+            isin = search.getIsin();
+            price2 = search.getPrice2();
+            branche = search.getBranche();
+            percent2 = search.getPercent2();
+        }
+        catch(IOException e){
+
+        }
+    }
+
+    public void Download(URL urll, String Name){
+        try {
+            InputStream in = new BufferedInputStream(urll.openStream());
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             byte[] buf = new byte[1024];
             int n = 0;
@@ -162,19 +145,48 @@ public class Request {
             out.close();
             in.close();
             byte[] response = out.toByteArray();
-            FileOutputStream fos = new FileOutputStream("SearchURL");
+            FileOutputStream fos = new FileOutputStream(Name);
             fos.write(response);
             fos.close();
-            search.searchsearch();
-
-            name = search.getname();
-            isin = search.getIsin();
-            price2 = search.getPrice2();
-            branche = search.getBranche();
-            percent2 = search.getPercent2();
         }
-        catch(IOException e){
+        catch(FileNotFoundException e){
+        }
+        catch (IOException e){
+        }
+    }
 
+    public void checkDown(URL urll, String Path){
+        File f = new File(Path);
+
+        SimpleDateFormat m = new SimpleDateFormat("mm");
+        SimpleDateFormat h = new SimpleDateFormat("HH");
+        SimpleDateFormat e = new SimpleDateFormat("E");
+
+        Date now = new Date();
+
+        if(((e.format(now) != "Sam.") || (e.format(now) != "So."))){
+            if (e.format(now) != e.format(f.lastModified())) {
+                if (Integer.parseInt(m.format(now)) - Integer.parseInt(m.format(f.lastModified())) >= 5) {
+                    if (Integer.parseInt(h.format(f.lastModified())) - Integer.parseInt(h.format(now)) < 1) {
+                        Download(urll,  Path); //Herunterladen
+                    } else {
+                        //Nothing, Bilder sind noch aktuell
+                    }
+                } else {
+                    //Nothing, Bilder sind noch aktuell
+                }
+            }
+            else {
+                Download(urll,  Path); //Herunterladen
+            }
+        }
+        else{
+            if((e.format(f.lastModified()) != "Sam.") || (e.format(f.lastModified())) != "Son."){
+                Download(urll,  Path); //Herunterladen
+            }
+            else {
+                //Nothing, Bilder sind noch aktuell
+            }
         }
     }
 
@@ -195,9 +207,7 @@ public class Request {
         return Name;
     }
 
-    public String[] getname(){
-        return name;
-    }
+    public String[] getname(){ return name; }
 
     public String[] getIsin(){
         return isin;

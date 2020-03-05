@@ -215,6 +215,9 @@ public class Controller implements Initializable {
         gewinn3.setTextFill(Color.GREEN);
 
         //Beachte btnevent; umbauen zu einer anderen Methode mit festem Wert bei init();
+
+
+
         Thread thread1 = new Thread(){
             public void run(){
                 Initsecondtab();
@@ -245,6 +248,7 @@ public class Controller implements Initializable {
         thread4.run();
     }
 
+    //Initialisieren der SearchPane
     public void Initsearch(){
         SearchPane.getChildren().clear();
         req.DownloadSearch(TextSearch.getText());
@@ -438,7 +442,7 @@ public class Controller implements Initializable {
                 LabelPerEu.setText(((float)((int) (req.getPerPrice()*100))/100) + "€");
                 LabelPerEu.setTextFill(Color.RED);
             }
-            Image image = new Image(new File("6M").toURI().toURL().toExternalForm());
+            Image image = new Image(new File("Images/ISIN Images/6M.png").toURI().toURL().toExternalForm());
             Img1.setImage(image);
         }
         catch (IOException e){

@@ -101,7 +101,7 @@ public class Search {
 
     public void searchsearch(){
         try {
-            FileReader fr = new FileReader("SearchURL");
+            FileReader fr = new FileReader("SearchURL.html");
             BufferedReader br = new BufferedReader(fr);
 
             String zeile = "";

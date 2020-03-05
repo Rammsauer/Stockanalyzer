@@ -95,7 +95,7 @@
                         <Label layoutX="370.0" layoutY="150.0" text="€" />
                         <Label layoutX="370.0" layoutY="237.0" text="€" />
                         <Label fx:id="LabelGew" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="272.0" layoutY="237.0" prefHeight="16.0" prefWidth="92.0" text="-2" />
-                        <Label layoutX="1.0" layoutY="86.0" prefHeight="16.0" prefWidth="157.0" text="---------------------------------" />
+                        <Label layoutX="1.0" layoutY="86.0" prefHeight="16.0" prefWidth="157.0" text="--------------------------------" />
                         <Label fx:id="LabelCombo" alignment="CENTER_RIGHT" layoutX="18.0" layoutY="106.0" prefHeight="16.0" prefWidth="88.0" text=" " />
                         <Label fx:id="LabelEu" layoutX="108.0" layoutY="106.0" text="Euro" />
                         <RadioButton fx:id="Radio1" layoutX="162.0" layoutY="16.0" mnemonicParsing="false" onAction="#Radio1" selected="true" text="Aktueller Kurs" />
