@@ -25,7 +25,7 @@ public class Search {
 
     public void searcheng(){
         try{
-            FileReader fr = new FileReader("URL.html");
+            FileReader fr = new FileReader("Stock/URL.html");
             BufferedReader br = new BufferedReader(fr);
 
             String zeile = "";
@@ -101,7 +101,7 @@ public class Search {
 
     public void searchsearch(){
         try {
-            FileReader fr = new FileReader("SearchURL.html");
+            FileReader fr = new FileReader("Stock/SearchURL.html");
             BufferedReader br = new BufferedReader(fr);
 
             String zeile = "";

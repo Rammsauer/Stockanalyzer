@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
@@ -50,10 +51,10 @@
                         <Label layoutX="370.0" layoutY="199.0" text="€" />
                         <Label fx:id="LabelKauf" alignment="CENTER_RIGHT" layoutX="300.0" layoutY="175.0" prefHeight="16.0" prefWidth="64.0" text="9.30" />
                         <Label fx:id="LabelVerkauf" alignment="CENTER_RIGHT" layoutX="319.0" layoutY="199.0" prefHeight="16.0" prefWidth="45.0" text="15.30" />
-                        <ComboBox fx:id="seatMenu1" layoutX="14.0" layoutY="215.0" onAction="#DynamicChange" prefHeight="26.0" prefWidth="127.0" />
-                        <ComboBox fx:id="seatMenu2" layoutX="14.0" layoutY="270.0" onAction="#changeseatMenu2" prefHeight="26.0" prefWidth="127.0" />
-                        <Label layoutX="14.0" layoutY="245.0" text="Zeitraum" />
-                        <Label layoutX="14.0" layoutY="191.0" text="Börsenplatz" />
+                        <ComboBox fx:id="seatMenu1" layoutX="14.0" layoutY="205.0" onAction="#DynamicChange" prefHeight="26.0" prefWidth="127.0" />
+                        <ComboBox fx:id="seatMenu2" layoutX="14.0" layoutY="262.0" onAction="#changeseatMenu2" prefHeight="26.0" prefWidth="127.0" />
+                        <Label layoutX="14.0" layoutY="237.0" text="Zeitraum" />
+                        <Label layoutX="14.0" layoutY="184.0" text="Börsenplatz" />
                         <ComboBox fx:id="seatMenu3" layoutX="16.0" layoutY="25.0" onAction="#changeCombo" prefHeight="26.0" prefWidth="127.0" />
                         <TextField fx:id="StackText" alignment="CENTER_RIGHT" layoutX="18.0" layoutY="60.0" onMouseExited="#DynamicChange" prefHeight="26.0" prefWidth="75.0" promptText="1" />
                         <Label fx:id="LabelSt" layoutX="97.0" layoutY="63.0" text="Stück">
@@ -61,9 +62,9 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="TextZiel" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="161.0" onMouseExited="#DynamicChange" prefHeight="26.0" prefWidth="112.0" promptText="1" />
-                        <Label layoutX="18.0" layoutY="132.0" text="Kursziel" />
-                        <Label layoutX="134.0" layoutY="166.0" text="€">
+                        <TextField fx:id="TextZiel" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="149.0" onMouseExited="#DynamicChange" prefHeight="26.0" prefWidth="112.0" promptText="1" />
+                        <Label layoutX="18.0" layoutY="130.0" text="Kursziel" />
+                        <Label layoutX="131.0" layoutY="152.0" text="€">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -88,7 +89,7 @@
                         <Label layoutX="164.0" layoutY="124.0" text="Einkaufswert:" />
                         <Label layoutX="164.0" layoutY="150.0" text="Kursziel:" />
                         <Label layoutX="164.0" layoutY="237.0" text="Gewinn/Verlust:" />
-                        <Label layoutX="164.0" layoutY="220.0" prefHeight="16.0" prefWidth="218.0" text="----------------------------------------------" />
+                        <Label layoutX="164.0" layoutY="220.0" prefHeight="16.0" prefWidth="218.0" text="---------------------------------------------" />
                         <Label fx:id="LabelZiel" alignment="CENTER_RIGHT" layoutX="224.0" layoutY="150.0" prefHeight="16.0" prefWidth="140.0" text="1.0" />
                         <Label fx:id="LabelEinkauf" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="259.0" layoutY="124.0" prefHeight="16.0" prefWidth="105.0" text="1" />
                         <Label layoutX="370.0" layoutY="124.0" text="€" />
@@ -96,7 +97,7 @@
                         <Label layoutX="370.0" layoutY="237.0" text="€" />
                         <Label fx:id="LabelGew" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="272.0" layoutY="237.0" prefHeight="16.0" prefWidth="92.0" text="-2" />
                         <Label layoutX="1.0" layoutY="86.0" prefHeight="16.0" prefWidth="157.0" text="--------------------------------" />
-                        <Label fx:id="LabelCombo" alignment="CENTER_RIGHT" layoutX="18.0" layoutY="106.0" prefHeight="16.0" prefWidth="88.0" text=" " />
+                        <Label fx:id="LabelCombo" alignment="CENTER_RIGHT" layoutX="18.0" layoutY="105.0" prefHeight="16.0" prefWidth="88.0" text=" " />
                         <Label fx:id="LabelEu" layoutX="108.0" layoutY="106.0" text="Euro" />
                         <RadioButton fx:id="Radio1" layoutX="162.0" layoutY="16.0" mnemonicParsing="false" onAction="#Radio1" selected="true" text="Aktueller Kurs" />
                         <RadioButton fx:id="Radio2" layoutX="280.0" layoutY="16.0" mnemonicParsing="false" onAction="#Radio2" text="Eigenen Kurs" />
@@ -115,6 +116,11 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
+                        <Button layoutX="13.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Aktualisieren" />
+                        <Line endX="100.0" layoutX="57.0" layoutY="126.0" startX="-55.0" />
+                        <Line endX="100.0" layoutX="56.0" layoutY="297.0" startX="-55.0" />
+                        <Text layoutX="13.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Letzte Aktualisierung:" />
+                        <Text layoutX="16.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -129,7 +135,7 @@
                               <Pane fx:id="DaxPane" prefHeight="1718.0" prefWidth="195.0" />
                            </content></ScrollPane>
                         <ComboBox fx:id="ComboIndex" layoutX="14.0" layoutY="24.0" onAction="#changeIndex" prefHeight="26.0" prefWidth="163.0" />
-                        <ComboBox fx:id="Indextime" layoutX="14.0" layoutY="305.0" onAction="#changeIndextime" prefHeight="26.0" prefWidth="163.0" />
+                        <ComboBox fx:id="Indextime" layoutX="14.0" layoutY="301.0" onAction="#changeIndextime" prefHeight="26.0" prefWidth="163.0" />
                         <Line endX="100.0" layoutX="82.0" layoutY="58.0" startX="-100.0" />
                         <Label layoutX="14.0" layoutY="8.0" text="Börsenindex" />
                         <Label layoutX="14.0" layoutY="80.0" text="12.227,85">
@@ -149,7 +155,7 @@
                            </font>
                         </Label>
                         <Line endX="100.0" layoutX="82.0" layoutY="141.0" startX="-100.0" />
-                        <Label layoutX="14.0" layoutY="287.0" text="Zeitraum" />
+                        <Label layoutX="14.0" layoutY="282.0" text="Zeitraum" />
                         <Label layoutX="14.0" layoutY="145.0" text="Gewinner" />
                         <Label layoutX="14.0" layoutY="162.0" text="Merck Kgaa" />
                         <Label fx:id="gewinn1" alignment="CENTER_RIGHT" layoutX="127.0" layoutY="162.0" text="+1,92%" textFill="LIME" />

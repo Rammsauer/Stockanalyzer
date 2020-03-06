@@ -79,7 +79,7 @@ public class Request {
 
     public void DownloadSite() {
         System.out.println();
-        Download(url, "URL.html");
+        Download(url, "Stock/URL.html");
 
     }
 
@@ -88,7 +88,7 @@ public class Request {
             String[] s = {"1D", "5D", "10D", "3M", "6M", "1Y", "5Y"};
             for(int i = 0; i < s.length; i++) {
                 URL urll = new URL("https://charts.comdirect.de/charts/rebrush/design_small.ewf.chart?DENSITY=2&HEIGHT=173&ID_NOTATION=" + Notation + "&TIME_SPAN=" + s[i] + "&TYPE=MOUNTAIN&WIDTH=256&WITH_EARNINGS=1");
-                checkDown(urll, "Images/ISIN Images/" + s[i] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
+                checkDown(urll, "Stock/Images/ISIN Images/" + s[i] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
             }
 
         }
@@ -105,7 +105,7 @@ public class Request {
             for(int i = 0; i < s.length; i++) {
                 for(int n = 0; n < t.length; n++) {
                     URL urll = new URL("https://charts.comdirect.de/charts/rebrush/design_small_wide.informer.chart?HEIGHT=264&ID_NOTATION=" + s[i] + "&SHOWHL=0&TIME_SPAN=" + t[n] + "&TYPE=MOUNTAIN&WIDTH=450");
-                    checkDown(urll, "Images/Stock Images/" + g[i] + "/" + g[i] + t[n] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
+                    checkDown(urll, "Stock/Images/Stock Images/" + g[i] + "/" + g[i] + t[n] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
                 }
             }
 
@@ -120,7 +120,7 @@ public class Request {
             s = s.replace(" ", "+");
             s = s.toUpperCase();
             URL urll = new URL("https://kurse.boerse.ard.de/ard/kurse_einzelkurs_suche.htn?suchbegriff=" + s + "&seite=suche&exitPoint=all&tabSearch=securityCategoryCode~SHARE");
-            Download(urll, "SearchURL.html");
+            Download(urll, "Stock/SearchURL.html");
             search.searchsearch();
             name = search.getname();
             isin = search.getIsin();

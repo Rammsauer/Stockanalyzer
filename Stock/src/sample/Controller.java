@@ -367,13 +367,13 @@ public class Controller implements Initializable {
             try {
                 percent2[i] = percent2[i].replace(",", ".");
                 if (Double.parseDouble(percent2[i]) < 0) {
-                    Image image = new Image(new File("down.png").toURI().toURL().toExternalForm());
+                    Image image = new Image(new File("Stock/down.png").toURI().toURL().toExternalForm());
                     steig.setImage(image);
                 } else if (Double.parseDouble(percent2[i]) > 0) {
-                    Image image = new Image(new File("up.png").toURI().toURL().toExternalForm());
+                    Image image = new Image(new File("Stock/up.png").toURI().toURL().toExternalForm());
                     steig.setImage(image);
                 } else if (Double.parseDouble(percent2[i]) == 0) {
-                    Image image = new Image(new File("normal.png").toURI().toURL().toExternalForm());
+                    Image image = new Image(new File("Stock/normal.png").toURI().toURL().toExternalForm());
                     steig.setImage(image);
                 }
             }
@@ -442,7 +442,7 @@ public class Controller implements Initializable {
                 LabelPerEu.setText(((float)((int) (req.getPerPrice()*100))/100) + "€");
                 LabelPerEu.setTextFill(Color.RED);
             }
-            Image image = new Image(new File("Images/ISIN Images/6M.png").toURI().toURL().toExternalForm());
+            Image image = new Image(new File("Stock/Images/ISIN Images/6M.png").toURI().toURL().toExternalForm());
             Img1.setImage(image);
         }
         catch (IOException e){
@@ -638,7 +638,7 @@ public class Controller implements Initializable {
     public void changeseatMenu2(){
         if(seatMenu2.getValue() == "Intraday"){
             try {
-                Image image = new Image(new File("1D").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/ISIN Images/1D.png").toURI().toURL().toExternalForm());
                 Img1.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -646,7 +646,7 @@ public class Controller implements Initializable {
         }
         else if(seatMenu2.getValue() == "5 Tage"){
             try {
-                Image image = new Image(new File("5D").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/ISIN Images/5D.png").toURI().toURL().toExternalForm());
                 Img1.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -654,7 +654,7 @@ public class Controller implements Initializable {
         }
         else if(seatMenu2.getValue() == "10 Tage"){
             try {
-                Image image = new Image(new File("10D").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/ISIN Images/10D.png").toURI().toURL().toExternalForm());
                 Img1.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -662,7 +662,7 @@ public class Controller implements Initializable {
         }
         else if(seatMenu2.getValue() == "3 Monate"){
             try {
-                Image image = new Image(new File("3M").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/ISIN Images/3M.png").toURI().toURL().toExternalForm());
                 Img1.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -670,7 +670,7 @@ public class Controller implements Initializable {
         }
         else if(seatMenu2.getValue() == "6 Monate"){
             try {
-                Image image = new Image(new File("6M").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/ISIN Images/6M.png").toURI().toURL().toExternalForm());
                 Img1.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -678,7 +678,7 @@ public class Controller implements Initializable {
         }
         else if(seatMenu2.getValue() == "1 Jahr"){
             try {
-                Image image = new Image(new File("1Y").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/ISIN Images/1Y.png").toURI().toURL().toExternalForm());
                 Img1.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -686,7 +686,7 @@ public class Controller implements Initializable {
         }
         else if(seatMenu2.getValue() == "5 Jahre"){
             try {
-                Image image = new Image(new File("5Y").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/ISIN Images/5Y.png").toURI().toURL().toExternalForm());
                 Img1.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -1073,7 +1073,7 @@ public class Controller implements Initializable {
     public void Imagechange(String Index){
         if(Indextime.getValue() == "Intraday"){
             try {
-                Image image = new Image(new File(Index + "1D").toURI().toURL().toExternalForm());
+                Image image = new Image(new File( "Stock/Images/Stock Images/" + Index + "/" + Index + "1D.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -1081,7 +1081,7 @@ public class Controller implements Initializable {
         }
         else if(Indextime.getValue() == "5 Tage"){
             try {
-                Image image = new Image(new File(Index + "5D").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/" + Index + "/" + Index + "5D.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -1089,7 +1089,7 @@ public class Controller implements Initializable {
         }
         else if(Indextime.getValue() == "10 Tage"){
             try {
-                Image image = new Image(new File(Index + "10D").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/" + Index + "/" + Index + "10D.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -1097,7 +1097,7 @@ public class Controller implements Initializable {
         }
         else if(Indextime.getValue() == "3 Monate"){
             try {
-                Image image = new Image(new File(Index + "3M").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/" + Index + "/" + Index + "3M.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -1105,7 +1105,7 @@ public class Controller implements Initializable {
         }
         else if(Indextime.getValue() == "6 Monate"){
             try {
-                Image image = new Image(new File(Index + "6M").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/" + Index + "/" + Index + "6M.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -1113,7 +1113,7 @@ public class Controller implements Initializable {
         }
         else if(Indextime.getValue() == "1 Jahr"){
             try {
-                Image image = new Image(new File( Index + "1Y").toURI().toURL().toExternalForm());
+                Image image = new Image(new File(  "Stock/Images/Stock Images/" + Index + "/" + Index + "1Y.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -1121,7 +1121,7 @@ public class Controller implements Initializable {
         }
         else if(Indextime.getValue() == "5 Jahre"){
             try {
-                Image image = new Image(new File(Index + "5Y").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/" + Index + "/" + Index + "5Y.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -1154,7 +1154,7 @@ public class Controller implements Initializable {
                 LabelPerEu.setTextFill(Color.RED);
             }
 
-            Image image = new Image(new File("6M").toURI().toURL().toExternalForm());
+            Image image = new Image(new File("Stock/Images/ISIN Images/6M.png").toURI().toURL().toExternalForm());
             Img1.setImage(image);
             seatMenu2.getSelectionModel().select("6 Monate");
             DynamicChange();

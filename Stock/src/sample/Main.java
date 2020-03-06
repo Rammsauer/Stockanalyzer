@@ -21,13 +21,13 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setTitle("Stockoverview");
         stage.setResizable(false);
-        stage.setHeight(400);
+        stage.setHeight(432);
         stage.setWidth(800);
-        stage.setMinHeight(400);
+        stage.setMinHeight(432);
         stage.setMinWidth(800);
         controller.init();
 
-        Image icon = new Image("file:1.jpeg");
+        Image icon = new Image("file:Stock/1.jpeg");
         stage.getIcons().add(icon);
 
         stage.show();
