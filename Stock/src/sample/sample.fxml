@@ -116,11 +116,11 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Button layoutX="13.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Aktualisieren" />
+                        <Button fx:id="rButton" layoutX="13.0" layoutY="332.0" mnemonicParsing="false" onAction="#refreshbutton" prefHeight="26.0" prefWidth="127.0" text="Aktualisieren" />
                         <Line endX="100.0" layoutX="57.0" layoutY="126.0" startX="-55.0" />
                         <Line endX="100.0" layoutX="56.0" layoutY="297.0" startX="-55.0" />
                         <Text layoutX="13.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Letzte Aktualisierung:" />
-                        <Text layoutX="16.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" />
+                        <Label fx:id="Watch" layoutX="13.0" layoutY="315.0" text="00:00:00" />
                      </children></AnchorPane>
             </content>
           </Tab>

@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -117,6 +119,12 @@ public class Controller implements Initializable {
     @FXML
     private Pane SearchPane;
 
+    @FXML
+    private Label Watch;
+
+    @FXML
+    private Button rButton;
+
     private String[] Dax;
     private String[] Daxisin;
 
@@ -146,6 +154,10 @@ public class Controller implements Initializable {
 
     private AnchorPane rootPane;
     private Request req;
+
+    static int sec = 0;
+    static int min = 0;
+    static int hour = 0;
 
     //Do not change!
     public static Controller getInstance() {
@@ -423,6 +435,37 @@ public class Controller implements Initializable {
     //Actionmethode für den Refresh Button; wird demnächst gelöscht, durch Suchfunktion unnötig
     public void Initsecondtab(){
         try {
+            DecimalFormat df = new DecimalFormat("00");
+            Watch.setText(df.format(hour) + ":" + df.format(min) + ":" + df.format(sec));
+
+            sec = 0;
+            min = 0;
+            hour = 0;
+
+            Thread stop = new Thread(){
+                public void run() {
+                    while(true) {
+                        try {
+                            sleep(1000);
+                            if (sec == 59) {
+                                sec = 0;
+                                min++;
+                            }
+                            if (min == 59) {
+                                sec = 0;
+                                min = 0;
+                                hour++;
+                            }
+                            Platform.runLater(() -> Watch.setText(df.format(hour) + ":" + df.format(min) + ":" + df.format(sec)));
+                            sec++;
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+            };
+            stop.start();
+
             String t = "https://www.comdirect.de/inf/aktien/NO0010081235";
             URL url = new URL(t);
             req = new Request(url);
@@ -1161,6 +1204,11 @@ public class Controller implements Initializable {
         }
         catch (IOException e){
         }
+    }
+
+    public void refreshbutton(){
+        Initsecondtab();
+
     }
 
     public void DynamicChange(){
