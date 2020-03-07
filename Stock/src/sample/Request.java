@@ -87,7 +87,12 @@ public class Request {
             String[] s = {"1D", "5D", "10D", "3M", "6M", "1Y", "5Y"};
             for(int i = 0; i < s.length; i++) {
                 URL urll = new URL("https://charts.comdirect.de/charts/rebrush/design_small.ewf.chart?DENSITY=2&HEIGHT=173&ID_NOTATION=" + Notation + "&TIME_SPAN=" + s[i] + "&TYPE=MOUNTAIN&WIDTH=256&WITH_EARNINGS=1");
-                checkDown(urll, "Stock/Images/ISIN Images/" + s[i] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
+                if(false) {
+                    //Nothing
+                }
+                else{
+                    checkDown(urll, "Stock/Images/ISIN Images/" + s[i] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
+                }
             }
 
         }
@@ -163,8 +168,9 @@ public class Request {
 
         Date now = new Date();
 
-        if(((e.format(now) != "Sam.") || (e.format(now) != "So."))){
-            if (e.format(now) != e.format(f.lastModified())) {
+
+        if(((e.format(now) != "Sa.") || (e.format(now) != "So."))){
+            if (e.format(now) == e.format(f.lastModified())) {
                 if (Integer.parseInt(m.format(now)) - Integer.parseInt(m.format(f.lastModified())) >= 5) {
                     if (Integer.parseInt(h.format(f.lastModified())) - Integer.parseInt(h.format(now)) < 1) {
                         Download(urll,  Path); //Herunterladen

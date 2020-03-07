@@ -30,12 +30,41 @@
                         </Label>
                         <TextField fx:id="TextSearch" layoutX="137.0" layoutY="12.0" text="Bayer" />
                         <Line endX="705.0" layoutX="101.0" layoutY="48.0" startX="-100.0" />
-                        <Button fx:id="btnsearch" layoutX="317.0" layoutY="12.0" mnemonicParsing="false" onAction="#Initsearch" text="Suchen" />
-                        <ScrollPane layoutY="49.0" prefHeight="319.0" prefWidth="806.0">
+                        <Button fx:id="btnsearch" layoutX="292.0" layoutY="12.0" mnemonicParsing="false" onAction="#Initsearch" text="Suchen" />
+                        <ScrollPane layoutY="92.0" prefHeight="276.0" prefWidth="790.0">
                            <content>
-                              <Pane fx:id="SearchPane" prefHeight="317.0" prefWidth="803.0" />
+                              <Pane fx:id="SearchPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="276.0" prefWidth="775.0" />
                            </content>
                         </ScrollPane>
+                        <Label layoutX="14.0" layoutY="58.0" prefHeight="25.0" prefWidth="59.0" text="Name">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="140.0" layoutY="57.0" prefHeight="29.0" prefWidth="48.0" text="ISIN">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="273.0" layoutY="58.0" text="Aktueller Kurs">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="419.0" layoutY="58.0" text="Branche">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="530.0" layoutY="58.0" text="Differenz zum Vortag in %">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Line endX="123.0" endY="60.0" layoutX="10.0" layoutY="32.0" startX="123.0" startY="16.0" />
+                        <Line endX="295.0" endY="23.0" layoutX="233.0" layoutY="70.0" startX="295.0" startY="-21.0" />
+                        <Line endY="20.0" layoutX="268.0" layoutY="72.0" startY="-23.0" />
+                        <Line endX="-27.0" endY="8.0" layoutX="430.0" layoutY="85.0" startX="-27.0" startY="-37.0" />
                      </children></AnchorPane>
             </content>
           </Tab>

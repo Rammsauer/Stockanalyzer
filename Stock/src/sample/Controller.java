@@ -306,76 +306,39 @@ public class Controller implements Initializable {
         branche = req.getBranche();
         percent2 = req.getPercent2();
 
-        Label ln1 = new Label("Name");
-        Label isin1 = new Label("Isin");
-        Label kurs1 = new Label("Kurs");
-        Label bran1 = new Label("Branche");
-        Label perc1 = new Label("Diff. %");
-        Line line1 = new Line();
         Line line2 = new Line();
         Line line3 = new Line();
         Line line4 = new Line();
         Line line5 = new Line();
 
-        line1.setLayoutX(0);
-        line1.setLayoutY(16);
-        line1.setStartX(0);
-        line1.setEndX(800);
-        line1.setStartY(12);
-        line1.setEndY(12);
-
         line2.setStartX(132);
         line2.setEndX(132);
         line2.setStartY(0);
-        line2.setEndY(32*(name.length)-4);
+        line2.setEndY(32*(name.length-1)-4);
 
         line3.setStartX(267);
         line3.setEndX(267);
         line3.setStartY(0);
-        line3.setEndY(32*(name.length)-4);
+        line3.setEndY(32*(name.length-1)-4);
+
 
         line4.setStartX(402);
         line4.setEndX(402);
         line4.setStartY(0);
-        line4.setEndY(32*(name.length)-4);
+        line4.setEndY(32*(name.length-1)-4);
 
         line5.setStartX(527);
         line5.setEndX(527);
         line5.setStartY(0);
-        line5.setEndY(32*(name.length)-4);
+        line5.setEndY(32*(name.length-1)-4);
 
-        ln1.setFont(new Font(16.0));
-        ln1.setLayoutX(10);
-        ln1.setLayoutY(3);
-
-        isin1.setFont(new Font(16.0));
-        isin1.setLayoutX(135);
-        isin1.setLayoutY(3);
-
-        kurs1.setFont(new Font(16.0));
-        kurs1.setLayoutX(270);
-        kurs1.setLayoutY(3);
-
-        bran1.setFont(new Font(16.0));
-        bran1.setLayoutX(405);
-        bran1.setLayoutY(3);
-
-        perc1.setFont(new Font(16.0));
-        perc1.setLayoutX(530);
-        perc1.setLayoutY(3);
-
-        SearchPane.getChildren().add(ln1);
-        SearchPane.getChildren().add(isin1);
-        SearchPane.getChildren().add(kurs1);
-        SearchPane.getChildren().add(bran1);
-        SearchPane.getChildren().add(perc1);
-        SearchPane.getChildren().add(line1);
         SearchPane.getChildren().add(line2);
         SearchPane.getChildren().add(line3);
         SearchPane.getChildren().add(line4);
         SearchPane.getChildren().add(line5);
 
         int k = 0;
+        SearchPane.setMinHeight(32+(32*(name.length-2))); //
         for(int i = 1; i < name.length; i++) {
             Label ln2;
             if(name[i].length() > 14){
@@ -385,7 +348,7 @@ public class Controller implements Initializable {
                 ln2 = new Label(name[i]);
             }
             Label isin2 = new Label(isin[i]);
-            Label kurs2 = new Label(price2[i] + "€");
+            Label kurs2 = new Label(price2[i].replace("&nbsp", " ") + "€");
             Label bran2 = new Label(branche[i]);
             Label perc2 = new Label(percent2[i] + "%");
             Button btn1 = new Button("Analyse");
@@ -394,28 +357,28 @@ public class Controller implements Initializable {
             Line line = new Line();
 
             ln2.setLayoutX(10);
-            ln2.setLayoutY(32+(32*(i-1)));
+            ln2.setLayoutY((32*(i-1)));
             ln2.setFont(new Font(14));
 
             line.setStartX(0);
             line.setEndX(800);
-            line.setStartY(60+(64*(k)));
-            line.setEndY(60+(64*(k)));
+            line.setStartY(30+(64*(k)));
+            line.setEndY(30+(64*(k)));
 
             kurs2.setLayoutX(270);
-            kurs2.setLayoutY(32+(32*(i-1)));
+            kurs2.setLayoutY((32*(i-1)));
             kurs2.setFont(new Font(14));
 
             bran2.setLayoutX(405);
-            bran2.setLayoutY(32+(32*(i-1)));
+            bran2.setLayoutY((32*(i-1)));
             bran2.setFont(new Font(14));
 
             perc2.setLayoutX(530);
-            perc2.setLayoutY(32+(32*(i-1)));
+            perc2.setLayoutY((32*(i-1)));
             perc2.setFont(new Font(14));
 
             steig.setLayoutX(577);
-            steig.setLayoutY(32+(32*(i-1)));
+            steig.setLayoutY((32*(i-1)));
 
             try {
                 percent2[i] = percent2[i].replace(",", ".");
@@ -435,21 +398,22 @@ public class Controller implements Initializable {
             }
 
             isin2.setLayoutX(135);
-            isin2.setLayoutY(32+(32*(i-1)));
+            isin2.setLayoutY((32*(i-1)));
             isin2.setFont(new Font(14));
 
             btn1.setPrefHeight(10);
             btn1.setPrefWidth(75);
             btn1.setLayoutX(600);
-            btn1.setLayoutY(32+(32*(i-1)));
+            btn1.setLayoutY((32*(i-1)));
 
             btn2.setPrefHeight(10);
             btn2.setPrefWidth(95);
             btn2.setLayoutX(680);
-            btn2.setLayoutY(32+(32*(i-1)));
+            btn2.setLayoutY((32*(i-1)));
 
             btn1.setOnAction(actionEvent -> {
                 click(isin2.getText());
+                state = false;
                 //Tabname.setText(ln1.getText());  //Wird später wieder eingebaut, muss aufgrund vom Debbugen noch nicht integriert sein
             });
 

@@ -42,7 +42,7 @@ public class Search {
             Pattern rex2p = Pattern.compile("<span class=\"text-size--xlarge color--cd-positive\">(.*?) </span>");
             Pattern rex2n = Pattern.compile("<td class=\"simple-table__cell color--cd-negative\">(.*?)</td>");
 
-            Pattern rex3 = Pattern.compile("ID_NOTATION=(.*?)"); //"href=\"/inf/aktien/detail/firmenportrait/unternehmensbericht.html?ID_NOTATION=(.*?)'"
+            Pattern rex3 = Pattern.compile("DENSITY=2&amp;HEIGHT=173&amp;ID_NOTATION=(.*?)&amp;");
 
             Pattern name = Pattern.compile("<h1 class=\"headline headline--h1 headline--full-width headline--inline\">(.*?)<span class=\"text-size--medium\">Aktie</span>");
 
@@ -86,10 +86,12 @@ public class Search {
                 n = n.replace(" ", "");
                 Notation = n;
             }
-            System.out.println(Notation);
             while (mn.find()){
                 String n = mn.group(1);
-                n = n.replace(" ", "");
+                n = n.replace("  ", "");
+                n = n.replace("   ", "");
+                n = n.replace("    ", "");
+                n = n.replace("     ", "");
                 n = n.replace("&#38;","&");
                 Name = n;
 
