@@ -33,7 +33,7 @@
                         <Button fx:id="btnsearch" layoutX="317.0" layoutY="12.0" mnemonicParsing="false" onAction="#Initsearch" text="Suchen" />
                         <ScrollPane layoutY="49.0" prefHeight="319.0" prefWidth="806.0">
                            <content>
-                              <Pane fx:id="SearchPane" prefHeight="317.0" prefWidth="788.0" />
+                              <Pane fx:id="SearchPane" prefHeight="317.0" prefWidth="803.0" />
                            </content>
                         </ScrollPane>
                      </children></AnchorPane>

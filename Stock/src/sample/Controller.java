@@ -155,9 +155,43 @@ public class Controller implements Initializable {
     private AnchorPane rootPane;
     private Request req;
 
-    static int sec = 0;
-    static int min = 0;
-    static int hour = 0;
+    private static int sec = 0;
+    private static int min = 0;
+    private static int hour = 0;
+    private static boolean state = true;
+
+    private DecimalFormat df = new DecimalFormat("00");
+
+    private Thread stop = new Thread(){
+        public void run() {
+            if(state == true) {
+                while (true) {
+                    try {
+                        sleep(1000);
+                        if (sec == 59) {
+                            sec = -1;
+                            min++;
+                        }
+                        if (min == 59) {
+                            sec = -1;
+                            min = 0;
+                            hour++;
+                        }
+                        Platform.runLater(() -> Watch.setText(df.format(hour) + ":" + df.format(min) + ":" + df.format(sec)));
+                        sec++;
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+            else{
+                sec = -1;
+                min = 0;
+                hour = 0;
+                state = true;
+            }
+        }
+    };
 
     //Do not change!
     public static Controller getInstance() {
@@ -233,6 +267,7 @@ public class Controller implements Initializable {
         Thread thread1 = new Thread(){
             public void run(){
                 Initsecondtab();
+                stop.start();
             }
         };
 
@@ -286,28 +321,28 @@ public class Controller implements Initializable {
         line1.setLayoutY(16);
         line1.setStartX(0);
         line1.setEndX(800);
-        line1.setStartY(16);
-        line1.setEndY(16);
+        line1.setStartY(12);
+        line1.setEndY(12);
 
         line2.setStartX(132);
         line2.setEndX(132);
         line2.setStartY(0);
-        line2.setEndY(32*(name.length/4));
+        line2.setEndY(32*(name.length)-4);
 
         line3.setStartX(267);
         line3.setEndX(267);
         line3.setStartY(0);
-        line3.setEndY(32*(name.length/3));
+        line3.setEndY(32*(name.length)-4);
 
         line4.setStartX(402);
         line4.setEndX(402);
         line4.setStartY(0);
-        line4.setEndY(32*(name.length/2));
+        line4.setEndY(32*(name.length)-4);
 
-        line5.setStartX(537);
-        line5.setEndX(537);
+        line5.setStartX(527);
+        line5.setEndX(527);
         line5.setStartY(0);
-        line5.setEndY(32*(name.length-2));
+        line5.setEndY(32*(name.length)-4);
 
         ln1.setFont(new Font(16.0));
         ln1.setLayoutX(10);
@@ -326,7 +361,7 @@ public class Controller implements Initializable {
         bran1.setLayoutY(3);
 
         perc1.setFont(new Font(16.0));
-        perc1.setLayoutX(540);
+        perc1.setLayoutX(530);
         perc1.setLayoutY(3);
 
         SearchPane.getChildren().add(ln1);
@@ -342,39 +377,45 @@ public class Controller implements Initializable {
 
         int k = 0;
         for(int i = 1; i < name.length; i++) {
-            Label ln2 = new Label(name[i]);
+            Label ln2;
+            if(name[i].length() > 14){
+                ln2 = new Label(name[i].substring(0,13));
+            }
+            else {
+                ln2 = new Label(name[i]);
+            }
             Label isin2 = new Label(isin[i]);
             Label kurs2 = new Label(price2[i] + "€");
             Label bran2 = new Label(branche[i]);
             Label perc2 = new Label(percent2[i] + "%");
             Button btn1 = new Button("Analyse");
-            Button btn2 = new Button("Chartverfolgung");
+            Button btn2 = new Button("Abspeichern");
             ImageView steig = new ImageView();
             Line line = new Line();
 
             ln2.setLayoutX(10);
-            ln2.setLayoutY(32+(22*(i-1)));
+            ln2.setLayoutY(32+(32*(i-1)));
             ln2.setFont(new Font(14));
 
             line.setStartX(0);
             line.setEndX(800);
-            line.setStartY(53+(44*(k)));
-            line.setEndY(53+(44*(k)));
+            line.setStartY(60+(64*(k)));
+            line.setEndY(60+(64*(k)));
 
             kurs2.setLayoutX(270);
-            kurs2.setLayoutY(32+(22*(i-1)));
+            kurs2.setLayoutY(32+(32*(i-1)));
             kurs2.setFont(new Font(14));
 
             bran2.setLayoutX(405);
-            bran2.setLayoutY(32+(22*(i-1)));
+            bran2.setLayoutY(32+(32*(i-1)));
             bran2.setFont(new Font(14));
 
-            perc2.setLayoutX(540);
-            perc2.setLayoutY(32+(22*(i-1)));
+            perc2.setLayoutX(530);
+            perc2.setLayoutY(32+(32*(i-1)));
             perc2.setFont(new Font(14));
 
-            steig.setLayoutX(597);
-            steig.setLayoutY(32+(22*(i-1)));
+            steig.setLayoutX(577);
+            steig.setLayoutY(32+(32*(i-1)));
 
             try {
                 percent2[i] = percent2[i].replace(",", ".");
@@ -394,18 +435,18 @@ public class Controller implements Initializable {
             }
 
             isin2.setLayoutX(135);
-            isin2.setLayoutY(32+(22*(i-1)));
+            isin2.setLayoutY(32+(32*(i-1)));
             isin2.setFont(new Font(14));
 
-            btn2.setPrefHeight(25);
-            btn2.setPrefWidth(130);
-            btn2.setLayoutX(665);
-            btn2.setLayoutY(40);
+            btn1.setPrefHeight(10);
+            btn1.setPrefWidth(75);
+            btn1.setLayoutX(600);
+            btn1.setLayoutY(32+(32*(i-1)));
 
-            btn1.setPrefHeight(25);
-            btn1.setPrefWidth(130);
-            btn1.setLayoutX(665);
-            btn1.setLayoutY(7);
+            btn2.setPrefHeight(10);
+            btn2.setPrefWidth(95);
+            btn2.setLayoutX(680);
+            btn2.setLayoutY(32+(32*(i-1)));
 
             btn1.setOnAction(actionEvent -> {
                 click(isin2.getText());
@@ -424,8 +465,8 @@ public class Controller implements Initializable {
             SearchPane.getChildren().add(isin2);
             SearchPane.getChildren().add(kurs2);
             SearchPane.getChildren().add(steig);
-            //SearchPane.getChildren().add(btn1);
-            //SearchPane.getChildren().add(btn2);
+            SearchPane.getChildren().add(btn1);
+            SearchPane.getChildren().add(btn2);
             if(i % 2 == 0){
                 k++;
             }
@@ -435,36 +476,11 @@ public class Controller implements Initializable {
     //Actionmethode für den Refresh Button; wird demnächst gelöscht, durch Suchfunktion unnötig
     public void Initsecondtab(){
         try {
-            DecimalFormat df = new DecimalFormat("00");
-            Watch.setText(df.format(hour) + ":" + df.format(min) + ":" + df.format(sec));
-
             sec = 0;
             min = 0;
             hour = 0;
 
-            Thread stop = new Thread(){
-                public void run() {
-                    while(true) {
-                        try {
-                            sleep(1000);
-                            if (sec == 59) {
-                                sec = 0;
-                                min++;
-                            }
-                            if (min == 59) {
-                                sec = 0;
-                                min = 0;
-                                hour++;
-                            }
-                            Platform.runLater(() -> Watch.setText(df.format(hour) + ":" + df.format(min) + ":" + df.format(sec)));
-                            sec++;
-                        } catch (Exception e) {
-
-                        }
-                    }
-                }
-            };
-            stop.start();
+            Watch.setText(df.format(hour) + ":" + df.format(min) + ":" + df.format(sec));
 
             String t = "https://www.comdirect.de/inf/aktien/NO0010081235";
             URL url = new URL(t);
@@ -1073,8 +1089,8 @@ public class Controller implements Initializable {
                 isk = new Label(EuroStoxx50isin[i]);
             }
 
-            btn.setLayoutX(102);
-            btn.setLayoutY(22 + 57*i);
+            btn.setLayoutX(135);
+            btn.setLayoutY(10 + 57*i);
             btn.setPrefHeight(25);
             btn.setMinHeight(25);
             btn.setMaxHeight(25);
@@ -1208,6 +1224,7 @@ public class Controller implements Initializable {
 
     public void refreshbutton(){
         Initsecondtab();
+        state = false;
 
     }
 

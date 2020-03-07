@@ -78,7 +78,6 @@ public class Request {
     }
 
     public void DownloadSite() {
-        System.out.println();
         Download(url, "Stock/URL.html");
 
     }
