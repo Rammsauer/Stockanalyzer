@@ -1,11 +1,10 @@
 package sample;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class Request {
 
@@ -87,12 +86,7 @@ public class Request {
             String[] s = {"1D", "5D", "10D", "3M", "6M", "1Y", "5Y"};
             for(int i = 0; i < s.length; i++) {
                 URL urll = new URL("https://charts.comdirect.de/charts/rebrush/design_small.ewf.chart?DENSITY=2&HEIGHT=173&ID_NOTATION=" + Notation + "&TIME_SPAN=" + s[i] + "&TYPE=MOUNTAIN&WIDTH=256&WITH_EARNINGS=1");
-                if(false) {
-                    //Nothing
-                }
-                else{
-                    checkDown(urll, "Stock/Images/ISIN Images/" + s[i] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
-                }
+                checkDown(urll, "Stock/Images/ISIN Images/" + s[i] + ".png"); //Zum checken ob ein Intervall dazwischen lieg
             }
 
         }
@@ -119,6 +113,20 @@ public class Request {
         }
     }
 
+    //Downloade alle Kurse von den Indizies
+    public void DownloadIndexK(String wert, String Index){
+        try{
+            Search s = new Search();
+            URL urll = new URL("https://www.comdirect.de/inf/indizes/werte/" + wert);
+            Download(urll, "Stock/IndexURL/" + Index + ".html");
+            s.searchIndex(Index);
+
+        }
+        catch (MalformedURLException e){
+
+        }
+    }
+
     public void DownloadSearch(String s){
         try{
             s = s.replace(" ", "+");
@@ -136,6 +144,7 @@ public class Request {
 
         }
     }
+
 
     public void Download(URL urll, String Name){
         try {
@@ -168,7 +177,6 @@ public class Request {
 
         Date now = new Date();
 
-
         if(((e.format(now) != "Sa.") || (e.format(now) != "So."))){
             if (e.format(now) == e.format(f.lastModified())) {
                 if (Integer.parseInt(m.format(now)) - Integer.parseInt(m.format(f.lastModified())) >= 5) {
@@ -186,7 +194,7 @@ public class Request {
             }
         }
         else{
-            if((e.format(f.lastModified()) != "Sam.") || (e.format(f.lastModified())) != "Son."){
+            if((e.format(f.lastModified()) != "Sa.") || (e.format(f.lastModified())) != "Son."){
                 Download(urll,  Path); //Herunterladen
             }
             else {

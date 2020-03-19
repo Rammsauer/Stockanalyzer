@@ -60,9 +60,17 @@ public class Database {
             "NL0000009538", "FR0000073272", "FR0000120578", "ES0113900J37", "DE0007164600", "FR0000121972", "DE0007236101", "FR0000130809", "ES0178430E18", "FR0000120271", "FR0013326246", "NL0000009355",
             "FR0000125486", "FR0000127771", "DE0007664039"};
 
+    private String[] IName = {"dax-index-DE0008469008", "DE0008467416", "DE0007203275", "DE0009653386", "dow-jones-US2605661048", "", "EU0009658145"};
+
+    private String[] SName = {"Dax", "MDAX", "TexDax", "SDax", "Dow", "Nasdaq", "EuroStoxx50"};
+
     public Database(){
 
     }
+
+    public String[] getKName(){ return IName; }
+
+    public String[] getSName(){ return SName; }
 
     public String[] getDax(){
         return Dax;

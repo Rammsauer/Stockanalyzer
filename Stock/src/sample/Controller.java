@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -13,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 import java.io.File;
 import java.io.IOException;
@@ -90,9 +92,6 @@ public class Controller implements Initializable {
     private ImageView Img1;
 
     @FXML
-    private Tab Tabname;
-
-    @FXML
     private ImageView DAXImg;
 
     @FXML
@@ -124,6 +123,9 @@ public class Controller implements Initializable {
 
     @FXML
     private Button rButton;
+
+    @FXML
+    private Label Name;
 
     private String[] Dax;
     private String[] Daxisin;
@@ -279,7 +281,7 @@ public class Controller implements Initializable {
 
         Thread thread3 = new Thread(){
             public void run(){
-                changeIndex();
+                initIndex();
             }
         };
 
@@ -414,7 +416,6 @@ public class Controller implements Initializable {
             btn1.setOnAction(actionEvent -> {
                 click(isin2.getText());
                 state = false;
-                //Tabname.setText(ln1.getText());  //Wird später wieder eingebaut, muss aufgrund vom Debbugen noch nicht integriert sein
             });
 
             btn2.setOnAction(actionEvent -> {
@@ -450,7 +451,7 @@ public class Controller implements Initializable {
             URL url = new URL(t);
             req = new Request(url);
             Kurs.setText(req.getPrice() + "");
-            Tabname.setText(req.getName());
+            Name.setText(req.getName());
             if(req.getPercent() > 0){
                 LabelPercent.setTextFill(Color.GREEN);
                 LabelPercent.setText("+" + ((float)((int) (req.getPercent()*100))/100) + "%");
@@ -717,11 +718,21 @@ public class Controller implements Initializable {
         }
     }
 
+    public void initIndex(){
+        Database db = new Database();
+        for(int i = 0; i < 7; i++){
+            String k = db.getKName()[i];
+            String s = db.getSName()[i];
+            req.DownloadIndexK(k, s);
+        }
+        changeIndex();
+    }
+
     //Actionmethode fürs verändern der Combobox bei den Indizes
     public void changeIndex(){
         if(ComboIndex.getValue() == "DAX"){
             try {
-                Image image = new Image(new File("Dax").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/Dax/Dax6M.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
                 Indextime.getSelectionModel().select("6 Monate");
                 editPane("DAX");
@@ -731,7 +742,7 @@ public class Controller implements Initializable {
         }
         if(ComboIndex.getValue() == "MDAX"){
             try {
-                Image image = new Image(new File("MDax").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/MDax/MDax6M.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
                 Indextime.getSelectionModel().select("6 Monate");
                 editPane("MDAX");
@@ -741,7 +752,7 @@ public class Controller implements Initializable {
         }
         if(ComboIndex.getValue() == "TecDAX"){
             try {
-                Image image = new Image(new File("TecDax").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/TecDax/TecDax6M.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
                 Indextime.getSelectionModel().select("6 Monate");
                 editPane("TecDAX");
@@ -751,7 +762,7 @@ public class Controller implements Initializable {
         }
         if(ComboIndex.getValue() == "SDAX"){
             try {
-                Image image = new Image(new File("SDax").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/SDax/SDax6M.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
                 Indextime.getSelectionModel().select("6 Monate");
                 editPane("SDAX");
@@ -761,7 +772,7 @@ public class Controller implements Initializable {
         }
         if(ComboIndex.getValue() == "Dow"){
             try {
-                Image image = new Image(new File("Dow").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/Dow/Dow6M.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
                 Indextime.getSelectionModel().select("6 Monate");
                 editPane("Dow");
@@ -771,7 +782,7 @@ public class Controller implements Initializable {
         }
         if(ComboIndex.getValue() == "Nasdaq 100"){
             try {
-                Image image = new Image(new File("Nasdaq").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/Nasdaq/Nasdaq6M.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
                 Indextime.getSelectionModel().select("6 Monate");
                 editPane("Nasdaq 100");
@@ -781,7 +792,7 @@ public class Controller implements Initializable {
         }
         if(ComboIndex.getValue() == "EuroStoxx50"){
             try {
-                Image image = new Image(new File("EuroStoxx50").toURI().toURL().toExternalForm());
+                Image image = new Image(new File("Stock/Images/Stock Images/EuroStoxx50/EuroStoxx506M.png").toURI().toURL().toExternalForm());
                 DAXImg.setImage(image);
                 Indextime.getSelectionModel().select("6 Monate");
                 editPane("EuroStoxx50");
@@ -1062,7 +1073,6 @@ public class Controller implements Initializable {
             final Label isk1 = isk;
             btn.setOnAction(actionEvent -> {
                 click(isk1.getText());
-                //Tabname.setText(ln1.getText());  //Wird später wieder eingebaut, muss aufgrund vom Debbugen noch nicht integriert sein
             });
 
             ln.setLayoutX(5);
@@ -1160,7 +1170,7 @@ public class Controller implements Initializable {
             req = new Request(url);
             Kurs.setText(req.getPrice() + "");
             TextZiel.setText(req.getPrice() + 1 + "");
-            Tabname.setText(req.getName());  //Später wieder ausbauen, sieht einfach schrecklich aus
+            Name.setText(req.getName());  //Später wieder ausbauen, sieht einfach schrecklich aus
 
             if(req.getPercent() > 0){
                 LabelPercent.setTextFill(Color.GREEN);
@@ -1189,7 +1199,7 @@ public class Controller implements Initializable {
     public void refreshbutton(){
         Initsecondtab();
         state = false;
-
+        seatMenu2.getSelectionModel().select("6 Monate");
     }
 
     public void DynamicChange(){

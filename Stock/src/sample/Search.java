@@ -98,7 +98,6 @@ public class Search {
             }
         }
         catch(IOException e){
-
         }
     }
 
@@ -164,17 +163,30 @@ public class Search {
             price2 = n3.split(";");
             branche = n5.split(";");
             percent2 = n6.split(";");
-
-            for(int i = 1; i < name.length; i++){
-                System.out.println(name[i] + " "  + isin[i] + " " + price2[i] + " " + branche[i] + " " + percent2[i]);
-            }
-
         }
         catch(IOException e){
 
         }
-
     }
+
+    public void searchIndex(String Index){
+        try{
+            FileReader fr = new FileReader("Stock/IndexURL/" + Index + ".html");
+            BufferedReader br = new BufferedReader(fr);
+
+            String zeile = "";
+            String s = "";
+
+            while( (zeile = br.readLine()) != null )
+            {
+                s = s + zeile;
+            }
+        }
+        catch(IOException e){
+
+        }
+    }
+
 
     public String[] getname(){
         return name;
