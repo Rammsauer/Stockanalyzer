@@ -86,7 +86,7 @@ public class Request {
             String[] s = {"1D", "5D", "10D", "3M", "6M", "1Y", "5Y"};
             for(int i = 0; i < s.length; i++) {
                 URL urll = new URL("https://charts.comdirect.de/charts/rebrush/design_small.ewf.chart?DENSITY=2&HEIGHT=173&ID_NOTATION=" + Notation + "&TIME_SPAN=" + s[i] + "&TYPE=MOUNTAIN&WIDTH=256&WITH_EARNINGS=1");
-                checkDown(urll, "Stock/Images/ISIN Images/" + s[i] + ".png"); //Zum checken ob ein Intervall dazwischen lieg
+                CheckISIN(urll, "Stock/Images/ISIN Images/" + s[i] + ".png"); //Zum checken ob ein Intervall dazwischen lieg
             }
 
         }
@@ -103,7 +103,7 @@ public class Request {
             for(int i = 0; i < s.length; i++) {
                 for(int n = 0; n < t.length; n++) {
                     URL urll = new URL("https://charts.comdirect.de/charts/rebrush/design_small_wide.informer.chart?HEIGHT=264&ID_NOTATION=" + s[i] + "&SHOWHL=0&TIME_SPAN=" + t[n] + "&TYPE=MOUNTAIN&WIDTH=450");
-                    checkDown(urll, "Stock/Images/Stock Images/" + g[i] + "/" + g[i] + t[n] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
+                    CheckStock(urll, "Stock/Images/Stock Images/" + g[i] + "/" + g[i] + t[n] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
                 }
             }
 
@@ -168,41 +168,186 @@ public class Request {
         }
     }
 
-    public void checkDown(URL urll, String Path){
+    public void CheckStock(URL urll, String Path){
         File f = new File(Path);
 
         SimpleDateFormat m = new SimpleDateFormat("mm");
         SimpleDateFormat h = new SimpleDateFormat("HH");
         SimpleDateFormat e = new SimpleDateFormat("E");
+        SimpleDateFormat mt = new SimpleDateFormat("MM");
+        SimpleDateFormat d = new SimpleDateFormat("dd");
+        SimpleDateFormat y = new SimpleDateFormat("yyyy");
 
         Date now = new Date();
 
-        if(((e.format(now) != "Sa.") || (e.format(now) != "So."))){
-            if (e.format(now) == e.format(f.lastModified())) {
-                if (Integer.parseInt(m.format(now)) - Integer.parseInt(m.format(f.lastModified())) >= 5) {
-                    if (Integer.parseInt(h.format(f.lastModified())) - Integer.parseInt(h.format(now)) < 1) {
-                        Download(urll,  Path); //Herunterladen
-                    } else {
-                        //Nothing, Bilder sind noch aktuell
+        if(y.format(f.lastModified()) == y.format(now)){
+            if(mt.format(f.lastModified()) == mt.format(now)){
+                if(d.format(f.lastModified()) == d.format(now)){
+                    if((e.format(f.lastModified()) != "Sa.") || (e.format(f.lastModified()) != "So.")){
+                        if(Integer.parseInt(h.format(f.lastModified())) - Integer.parseInt(h.format(now)) != 0){
+                            switch (Integer.parseInt(m.format(f.lastModified())) - Integer.parseInt(m.format(now))){
+                                case -5:
+                                    Download(urll,  Path);
+                                    break;
+                                case -4:
+                                    Download(urll,  Path);
+                                    break;
+                                case -3:
+                                    Download(urll,  Path);
+                                    break;
+                                case -2:
+                                    Download(urll,  Path);
+                                    break;
+                                case -1:
+                                    Download(urll,  Path);
+                                    break;
+                                case 0:
+                                    Download(urll,  Path);
+                                    break;
+                                case 1:
+                                    Download(urll,  Path);
+                                    break;
+                                case 2:
+                                    Download(urll,  Path);
+                                    break;
+                                case 3:
+                                    Download(urll,  Path);
+                                    break;
+                                case 4:
+                                    Download(urll,  Path);
+                                    break;
+                                case 5:
+                                    Download(urll,  Path);
+                                    break;
+                                case 55:
+                                    Download(urll,  Path);
+                                    break;
+                                case 56:
+                                    Download(urll,  Path);
+                                    break;
+                                case 57:
+                                    Download(urll,  Path);
+                                    break;
+                                case 58:
+                                    Download(urll,  Path);
+                                    break;
+                                case 59:
+                                    Download(urll,  Path);
+                                    break;
+                            }
+                        }
+                        else {
+                            Download(urll,  Path);
+                            //Stunden sind ungleich
+                        }
                     }
-                } else {
-                    //Nothing, Bilder sind noch aktuell
+                    else {
+                        //Nichts da Samstag und Sonntags nichts passiert
+                    }
+                }
+                else {
+                    Download(urll,  Path);
+                    //Trotzdem Herunterladen da Tage verschieden
                 }
             }
-            else {
-                Download(urll,  Path); //Herunterladen
+            else{
+                Download(urll,  Path);
+                //Trotzdem Herunterladen da Monate verschieden
             }
         }
         else{
-            if((e.format(f.lastModified()) != "Sa.") || (e.format(f.lastModified())) != "Son."){
-                Download(urll,  Path); //Herunterladen
-            }
-            else {
-                //Nothing, Bilder sind noch aktuell
-            }
+            Download(urll,  Path);
+            //Trotzdem Herunterladen da Jahre verschieden
         }
     }
 
+    public void CheckISIN(URL urll, String Path){
+        File f = new File(Path);
+
+        SimpleDateFormat m = new SimpleDateFormat("mm");
+        SimpleDateFormat h = new SimpleDateFormat("HH");
+        SimpleDateFormat e = new SimpleDateFormat("E");
+        SimpleDateFormat mt = new SimpleDateFormat("MM");
+        SimpleDateFormat d = new SimpleDateFormat("dd");
+        SimpleDateFormat y = new SimpleDateFormat("yyyy");
+
+        Date now = new Date();
+
+        if(y.format(f.lastModified()) == y.format(now)){
+            if(mt.format(f.lastModified()) == mt.format(now)){
+                if(d.format(f.lastModified()) == d.format(now)){
+                    if(Integer.parseInt(h.format(f.lastModified())) - Integer.parseInt(h.format(now)) != 0){
+                        switch (Integer.parseInt(m.format(f.lastModified())) - Integer.parseInt(m.format(now))){
+                            case -5:
+                                Download(urll,  Path);
+                                break;
+                            case -4:
+                                Download(urll,  Path);
+                                break;
+                            case -3:
+                                Download(urll,  Path);
+                                break;
+                            case -2:
+                                Download(urll,  Path);
+                                break;
+                            case -1:
+                                Download(urll,  Path);
+                                break;
+                            case 0:
+                                Download(urll,  Path);
+                                break;
+                            case 1:
+                                Download(urll,  Path);
+                                break;
+                            case 2:
+                                Download(urll,  Path);
+                                break;
+                            case 3:
+                                Download(urll,  Path);
+                                break;
+                            case 4:
+                                Download(urll,  Path);
+                                break;
+                            case 5:
+                                Download(urll,  Path);
+                                break;
+                            case 55:
+                                Download(urll,  Path);
+                                break;
+                            case 56:
+                                Download(urll,  Path);
+                                break;
+                            case 57:
+                                Download(urll,  Path);
+                                break;
+                            case 58:
+                                Download(urll,  Path);
+                                break;
+                            case 59:
+                                Download(urll,  Path);
+                                break;
+                        }
+                    }
+                    else {
+                        Download(urll,  Path);
+                        //Stunden sind ungleich
+                    }
+                }
+                else {
+                    Download(urll,  Path);
+                    //Trotzdem Herunterladen da Tage verschieden
+                }
+            }
+            else{
+                Download(urll,  Path);
+                //Trotzdem Herunterladen da Monate verschieden
+            }
+        }
+        else{
+            Download(urll,  Path);
+            //Trotzdem Herunterladen da Jahre verschieden
+        }
+    }
 
     public double getPrice(){
         return price;

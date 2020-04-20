@@ -127,6 +127,8 @@ public class Controller implements Initializable {
     @FXML
     private Label Name;
 
+    private String AIsin = "NO0010081235";
+
     private String[] Dax;
     private String[] Daxisin;
 
@@ -268,7 +270,7 @@ public class Controller implements Initializable {
 
         Thread thread1 = new Thread(){
             public void run(){
-                Initsecondtab();
+                click("NO0010081235");
                 stop.start();
             }
         };
@@ -436,42 +438,6 @@ public class Controller implements Initializable {
                 k++;
             }
         }
-    }
-
-    //Actionmethode für den Refresh Button; wird demnächst gelöscht, durch Suchfunktion unnötig
-    public void Initsecondtab(){
-        try {
-            sec = 0;
-            min = 0;
-            hour = 0;
-
-            Watch.setText(df.format(hour) + ":" + df.format(min) + ":" + df.format(sec));
-
-            String t = "https://www.comdirect.de/inf/aktien/NO0010081235";
-            URL url = new URL(t);
-            req = new Request(url);
-            Kurs.setText(req.getPrice() + "");
-            Name.setText(req.getName());
-            if(req.getPercent() > 0){
-                LabelPercent.setTextFill(Color.GREEN);
-                LabelPercent.setText("+" + ((float)((int) (req.getPercent()*100))/100) + "%");
-
-                LabelPerEu.setText("+" + ((float)((int) (req.getPerPrice()*100))/100) + "€");
-                LabelPerEu.setTextFill(Color.GREEN);
-            }
-            else{
-                LabelPercent.setTextFill(Color.RED);
-                LabelPercent.setText(((float)((int) (req.getPercent()*100))/100) + "%");
-
-                LabelPerEu.setText(((float)((int) (req.getPerPrice()*100))/100) + "€");
-                LabelPerEu.setTextFill(Color.RED);
-            }
-            Image image = new Image(new File("Stock/Images/ISIN Images/6M.png").toURI().toURL().toExternalForm());
-            Img1.setImage(image);
-        }
-        catch (IOException e){
-        }
-
     }
 
     //Actionmethode fürs verändern ob der Kauf mittels Stückzahl oder fester Ausgabe getätigt werden soll
@@ -1165,6 +1131,10 @@ public class Controller implements Initializable {
     //Lambda Methode in der Scrollbox der Indizes
     public void click(String isin){
         try {
+            sec = 0;
+            min = 0;
+            hour = 0;
+
             String t = "https://www.comdirect.de/inf/aktien/" + isin;
             URL url = new URL(t);
             req = new Request(url);
@@ -1194,10 +1164,12 @@ public class Controller implements Initializable {
         }
         catch (IOException e){
         }
+
+        AIsin = isin;
     }
 
     public void refreshbutton(){
-        Initsecondtab();
+        click(AIsin);
         state = false;
         seatMenu2.getSelectionModel().select("6 Monate");
     }
