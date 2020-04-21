@@ -3,6 +3,7 @@ package sample;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -180,60 +181,49 @@ public class Request {
 
         Date now = new Date();
 
-        if(y.format(f.lastModified()) == y.format(now)){
-            if(mt.format(f.lastModified()) == mt.format(now)){
-                if(d.format(f.lastModified()) == d.format(now)){
+        if(y.format(f.lastModified()).equals(y.format(now))){
+            if(mt.format(f.lastModified()).equals(mt.format(now))){
+                if(d.format(f.lastModified()).equals(d.format(now))){
                     if((e.format(f.lastModified()) != "Sa.") || (e.format(f.lastModified()) != "So.")){
-                        if(Integer.parseInt(h.format(f.lastModified())) - Integer.parseInt(h.format(now)) != 0){
+                        if(Integer.parseInt(h.format(f.lastModified())) - Integer.parseInt(h.format(now)) == 0){
                             switch (Integer.parseInt(m.format(f.lastModified())) - Integer.parseInt(m.format(now))){
                                 case -5:
-                                    Download(urll,  Path);
                                     break;
                                 case -4:
-                                    Download(urll,  Path);
                                     break;
                                 case -3:
-                                    Download(urll,  Path);
                                     break;
                                 case -2:
-                                    Download(urll,  Path);
                                     break;
                                 case -1:
-                                    Download(urll,  Path);
                                     break;
                                 case 0:
-                                    Download(urll,  Path);
                                     break;
                                 case 1:
-                                    Download(urll,  Path);
                                     break;
                                 case 2:
-                                    Download(urll,  Path);
                                     break;
                                 case 3:
-                                    Download(urll,  Path);
                                     break;
                                 case 4:
-                                    Download(urll,  Path);
                                     break;
                                 case 5:
-                                    Download(urll,  Path);
                                     break;
                                 case 55:
-                                    Download(urll,  Path);
                                     break;
                                 case 56:
-                                    Download(urll,  Path);
                                     break;
                                 case 57:
-                                    Download(urll,  Path);
                                     break;
                                 case 58:
-                                    Download(urll,  Path);
                                     break;
                                 case 59:
+                                    break;
+                                default:
+                                    System.out.println("1");
                                     Download(urll,  Path);
                                     break;
+                                //Download if größer
                             }
                         }
                         else {
@@ -266,66 +256,54 @@ public class Request {
 
         SimpleDateFormat m = new SimpleDateFormat("mm");
         SimpleDateFormat h = new SimpleDateFormat("HH");
-        SimpleDateFormat e = new SimpleDateFormat("E");
         SimpleDateFormat mt = new SimpleDateFormat("MM");
         SimpleDateFormat d = new SimpleDateFormat("dd");
         SimpleDateFormat y = new SimpleDateFormat("yyyy");
 
         Date now = new Date();
 
-        if(y.format(f.lastModified()) == y.format(now)){
-            if(mt.format(f.lastModified()) == mt.format(now)){
-                if(d.format(f.lastModified()) == d.format(now)){
-                    if(Integer.parseInt(h.format(f.lastModified())) - Integer.parseInt(h.format(now)) != 0){
+        if(y.format(f.lastModified()).equals(y.format(now))){
+            if(mt.format(f.lastModified()).equals(mt.format(now))){
+                if(d.format(f.lastModified()).equals(d.format(now))){
+                    if(Integer.parseInt(h.format(f.lastModified())) - Integer.parseInt(h.format(now)) == 0){
                         switch (Integer.parseInt(m.format(f.lastModified())) - Integer.parseInt(m.format(now))){
                             case -5:
-                                Download(urll,  Path);
                                 break;
                             case -4:
-                                Download(urll,  Path);
                                 break;
                             case -3:
-                                Download(urll,  Path);
                                 break;
                             case -2:
-                                Download(urll,  Path);
                                 break;
                             case -1:
-                                Download(urll,  Path);
                                 break;
                             case 0:
-                                Download(urll,  Path);
                                 break;
                             case 1:
-                                Download(urll,  Path);
                                 break;
                             case 2:
-                                Download(urll,  Path);
                                 break;
                             case 3:
-                                Download(urll,  Path);
                                 break;
                             case 4:
-                                Download(urll,  Path);
                                 break;
                             case 5:
-                                Download(urll,  Path);
                                 break;
                             case 55:
-                                Download(urll,  Path);
                                 break;
                             case 56:
-                                Download(urll,  Path);
                                 break;
                             case 57:
-                                Download(urll,  Path);
                                 break;
                             case 58:
-                                Download(urll,  Path);
                                 break;
                             case 59:
+                                break;
+                            default:
+                                System.out.println("5");
                                 Download(urll,  Path);
                                 break;
+                                //Download if größer
                         }
                     }
                     else {
