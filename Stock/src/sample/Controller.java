@@ -122,10 +122,10 @@ public class Controller implements Initializable {
     private Label Watch;
 
     @FXML
-    private Button rButton;
+    private Label Name;
 
     @FXML
-    private Label Name;
+    private ComboBox Perprice;
 
     private String AIsin = "NO0010081235";
 
@@ -257,7 +257,8 @@ public class Controller implements Initializable {
         Indextime.getItems().addAll("Intraday", "5 Tage", "10 Tage", "3 Monate", "6 Monate", "1 Jahr", "5 Jahre");
         Indextime.getSelectionModel().select("6 Monate");
 
-        StackText.setText("1");
+        Perprice.getItems().addAll("€", "%");
+        Perprice.getSelectionModel().select("€");
 
         //Lime sieht schrecklich aus
         gewinn1.setTextFill(Color.GREEN);
@@ -278,25 +279,12 @@ public class Controller implements Initializable {
         Thread thread2 = new Thread(){
             public void run(){
                 DynamicChange();
-            }
-        };
-
-        Thread thread3 = new Thread(){
-            public void run(){
                 initIndex();
-            }
-        };
-
-        Thread thread4 = new Thread(){
-            public void run(){
-                Initsearch();
             }
         };
 
         thread1.run();
         thread2.run();
-        thread3.run();
-        thread4.run();
     }
 
     //Initialisieren der SearchPane
@@ -692,6 +680,7 @@ public class Controller implements Initializable {
             req.DownloadIndexK(k, s);
         }
         changeIndex();
+
     }
 
     //Actionmethode fürs verändern der Combobox bei den Indizes

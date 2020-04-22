@@ -14,6 +14,7 @@ public class Request {
     private double percent;
     private double perPrice;
     private String Notation;
+    private String ONotation = "204941498";
     private Search search;
     private String Name;
 
@@ -87,9 +88,14 @@ public class Request {
             String[] s = {"1D", "5D", "10D", "3M", "6M", "1Y", "5Y"};
             for(int i = 0; i < s.length; i++) {
                 URL urll = new URL("https://charts.comdirect.de/charts/rebrush/design_small.ewf.chart?DENSITY=2&HEIGHT=173&ID_NOTATION=" + Notation + "&TIME_SPAN=" + s[i] + "&TYPE=MOUNTAIN&WIDTH=256&WITH_EARNINGS=1");
-                CheckISIN(urll, "Stock/Images/ISIN Images/" + s[i] + ".png"); //Zum checken ob ein Intervall dazwischen lieg
+                if(ONotation.equals(Notation)){
+                    CheckISIN(urll, "Stock/Images/ISIN Images/" + s[i] + ".png"); //Zum checken ob ein Intervall dazwischen lieg
+                }
+                else {
+                    Download(urll, "Stock/Images/ISIN Images/" + s[i] + ".png");
+                }
             }
-
+            ONotation = Notation;
         }
         catch(IOException e){
 
@@ -220,7 +226,6 @@ public class Request {
                                 case 59:
                                     break;
                                 default:
-                                    System.out.println("1");
                                     Download(urll,  Path);
                                     break;
                                 //Download if größer
@@ -300,7 +305,6 @@ public class Request {
                             case 59:
                                 break;
                             default:
-                                System.out.println("5");
                                 Download(urll,  Path);
                                 break;
                                 //Download if größer
