@@ -44,8 +44,18 @@ public class Database {
             "US4370761029", "US4592001014", "US4581401001", "US4781601046", "US46625H1005", "US5801351017", "US58933Y1055", "US5949181045", "US6541061031", "US7170811035", "US7427181091", "US89417E1091",
             "US9130171096", "US91324P1021", "US92343V1044", "US92826C8394", "US9314271084", "US9311421039", "US2546871060"};
 
-    private String[] SDAX = {""};
-    private String[] SDaxisin = {""};
+    private String[] SDAX = {"1&1 Drillisch", "ADO Properties", "ADVA", "AIXTRON", "Amadeus FiRe", "BayWa", "Befesa", "Bertrandt", "Bilfinger", "Borussia Dortmund", "Ceconomy St.", "CEWE Stiftung",
+            "Corestate Capital", "Dermapharm", "Deutsche Beteiligungs", "Deutsche Euroshop", "DEUTZ", "DIC Asset", "DMG MORI", "Drägerwerk", "DWS Group", "Ziegler Medizintechnik",
+            "Elmos Semiconductor", "ENCAVIS", "Fielmann", "HAMBORNER REIT", "HHLA", "HORNBACH", "Hypoport", "INDUS", "Instone Real Estate", "JENOPTIK", "JOST Werke", "Jungheinrich", "Klöckner",
+            "Koenig Bauer", "KRONES", "KWS SAAT", "LEONI", "LPKF Laser Electronics", "New Work", "Nordex", "NORMA Group", "PATRIZIA Immobilien", "Pfeiffer Vacuum", "RHÖN-KLINIKUM", "S&T", "SAF-Holland SA",
+            "Salzgitter", "Schaeffler", "Shop Apotheke Europe", "Sixt", "Sixt Leasing", "SMA Solar", "SNP", "Stabilus", "Steinhoff", "STRATEC", "Ströer", "Südzucker", "TAKKT",
+            "Talanx", "TRATON", "Vossloh", "WACKER CHEMIE", "Wacker Neuson", "WashTec", "Wüstenrot", "ZEAL Network", "zooplus"};
+    private String[] SDaxisin = {"DE0005545503", "LU1250154413", "DE0005103006", "DE000A0WMPJ6", "DE0005093108", "DE0005194062", "LU1704650164", "DE0005232805", "DE0005909006", "DE0005493092", "DE0007257503",
+            "DE0005403901", "LU1296758029", "DE000A2GS5D8", "DE000A1TNUT7", "DE0007480204", "DE0006305006", "DE000A1X3XX4", "DE0005878003", "DE0005550636", "DE000DWS1007", "DE0005659700", "DE0005677108",
+            "DE0006095003", "DE0005772206", "DE0006013006", "DE000A0S8488", "DE0006083405", "DE0005493365", "DE0006200108", "DE000A2NBX80", "DE000A2NB601", "DE000JST4000", "DE0006219934", "DE000KC01000",
+            "DE0007193500", "DE0006335003", "DE0007074007", "DE0005408884", "DE0006450000", "DE000NWRK013", "DE000A0D6554", "DE000A1H8BV3", "DE000PAT1AG3", "DE0006916604", "DE0007042301", "AT0000A0E9W5",
+            "LU0307018795", "DE0006202005", "DE000SHA0159", "NL0012044747", "DE0007231326", "DE000A0DPRE6", "DE000A0DJ6J9", "DE0007203705", "LU1066226637", "NL0011375019", "DE000STRA555", "DE0007493991",
+            "DE0007297004", "DE0007446007", "DE000TLX1005", "DE000TRAT0N7", "DE0007667107", "DE000WCH8881", "DE000WACK012", "DE0007507501", "DE0008051004", "DE000ZEAL241", "DE0005111702"};
 
     private String[] MDAX = {""};
     private String[] MDaxisin = {""};

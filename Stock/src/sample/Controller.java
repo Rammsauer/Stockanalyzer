@@ -127,6 +127,12 @@ public class Controller implements Initializable {
     @FXML
     private ComboBox Perprice;
 
+    @FXML
+    private Label PercentZiel;
+
+    @FXML
+    private Label PercentEuro;
+
     private String AIsin = "NO0010081235";
 
     private String[] Dax;
@@ -469,14 +475,42 @@ public class Controller implements Initializable {
     public void Ziellost(){
         try{
             if(seatMenu3.getValue() == "Stückzahl"){
-                float f = (Integer.parseInt(StackText.getText())) * (Float.parseFloat(TextZiel.getText()));
-                String t = ((float) (int) (f * 100) / 100) + "";
-                LabelZiel.setText(t);
+                float f;
+                if(Perprice.getValue() == "€"){
+                    f = (Float.parseFloat(StackText.getText())) * (Float.parseFloat(TextZiel.getText()));
+                    PercentEuro.setVisible(false);
+                    PercentZiel.setVisible(false);
+                }
+                else{
+                    float n = Float.parseFloat(Kurs.getText()) + (Float.parseFloat(Kurs.getText()) / 100 * Float.parseFloat(TextZiel.getText()));
+                    f = (Integer.parseInt(StackText.getText())) * n;
+                    PercentEuro.setVisible(true);
+                    PercentZiel.setVisible(true);
+                    PercentZiel.setText(n + "");
+                    PercentZiel.setAlignment(Pos.CENTER_RIGHT);
+                }
+                DecimalFormat s = new DecimalFormat("0.00");
+                String t = s.format(f);
+                LabelZiel.setText(t.replace(",", "."));
             }
             else{
-                float f = (Integer.parseInt(LabelCombo.getText())) * (Float.parseFloat(TextZiel.getText()));
-                String t = ((float) (int) (f * 100) / 100) + "";
-                LabelZiel.setText(t);
+                float f;
+                if(Perprice.getValue() == "€"){
+                    f = (Float.parseFloat(StackText.getText())) * (Float.parseFloat(TextZiel.getText()));
+                    PercentEuro.setVisible(false);
+                    PercentZiel.setVisible(false);
+                }
+                else{
+                    float n = Float.parseFloat(Kurs.getText()) + (Float.parseFloat(Kurs.getText()) / 100 * Float.parseFloat(TextZiel.getText()));
+                    f = (Integer.parseInt(StackText.getText())) * n;
+                    PercentEuro.setVisible(true);
+                    PercentZiel.setVisible(true);
+                    PercentZiel.setText(n + "");
+                    PercentZiel.setAlignment(Pos.CENTER_RIGHT);
+                }
+                DecimalFormat s = new DecimalFormat("0.00");
+                String t = s.format(f);
+                LabelZiel.setText(t.replace(",", "."));
             }
         }
         catch (NumberFormatException e){
