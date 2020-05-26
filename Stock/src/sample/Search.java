@@ -3,6 +3,8 @@ package sample;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -98,6 +100,61 @@ public class Search {
             }
         }
         catch(IOException e){
+        }
+    }
+
+    public void searchNews(String Wert){
+        try {
+            FileReader fr = new FileReader("Stock/News/" + Wert +".html");
+            BufferedReader br = new BufferedReader(fr);
+
+            List<String> Datum = new ArrayList<String>();
+            List<String> Uhrzeit = new ArrayList<String>();
+            List<String> Nachricht = new ArrayList<String>();
+            List<String> Link = new ArrayList<String>();
+
+            String zeile = "";
+            String s = "";
+
+            while ((zeile = br.readLine()) != null) {
+                s = s + zeile;
+            }
+
+            Pattern Dat = Pattern.compile("<td class=\"table__column table__column--left text-weight--regular text-size--small color--cd-anthracite-50\">(.*?)</td>");
+            //Pattern Nach = Pattern.compile("<td class=\"table__column table__column--left\"></td><a href=\"(.*?)\" class=\"link link--secondary link--seo-prepared\" data-plugin=\"(.*?)\" title=\"(.*?)\">(.*?)</a>");
+            Pattern Lin = Pattern.compile("<a href=\"(.?)\" class=\"link link--secondary link--seo-prepared\"");
+
+            Matcher m1 = Dat.matcher(s);
+            Matcher m2 = Lin.matcher(s);
+
+            String n1 = "";
+            String n2 = "";
+            String n3 = "";
+
+            while (m1.find()){
+                String t = m1.group(1);
+                t = t.replace(" ", "");
+                t = t.replace("&#160;", " ");
+                n1 = n1 + ";" + t;
+            }
+
+            while (m2.find()){
+                String t = m2.group(0);
+                t = t.replace("&amp;", "&");
+                System.out.println(t);
+                n2 = n2 + ";" + t;
+            }
+
+            while (m2.find()){
+                String t = m2.group(2);
+                n3 = n3 + ";" + t;
+            }
+
+            //System.out.println(n1);
+            System.out.println("1 " + n2);
+        }
+        catch (IOException e){
+
         }
     }
 

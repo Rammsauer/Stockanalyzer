@@ -83,6 +83,28 @@ public class Request {
 
     }
 
+    //Downloaden der jeweiligen News Seite
+    public void DownloadNews(String Wert){
+        try {
+            if (Wert == "DAX") {
+                URL urll = new URL("https://www.comdirect.de/inf/indizes/detail/news.html?ID_NOTATION=20735");
+                Download(urll, "Stock/News/DAX.html");
+
+                //Starten der Newssuche
+                search.searchNews("DAX");
+            } else if (Wert == "SDAX") {
+            } else if (Wert == "MDAX") {
+            } else if (Wert == "TecDAX") {
+            } else if (Wert == "Dow") {
+            } else if (Wert == "Nasdaq 100") {
+            } else if (Wert == "EuroStoxx50") {
+            }
+        }
+        catch (IOException e){
+
+        }
+    }
+
     public void DownloadImage(){
         try{
             String[] s = {"1D", "5D", "10D", "3M", "6M", "1Y", "5Y"};

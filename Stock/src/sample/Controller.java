@@ -133,6 +133,9 @@ public class Controller implements Initializable {
     @FXML
     private Label PercentEuro;
 
+    @FXML
+    private ComboBox ComboNews;
+
     private String AIsin = "NO0010081235";
 
     private String[] Dax;
@@ -266,6 +269,9 @@ public class Controller implements Initializable {
         Perprice.getItems().addAll("€", "%");
         Perprice.getSelectionModel().select("€");
 
+        ComboNews.getItems().addAll("DAX", "TecDAX", "SDAX", "MDAX", "Nasdaq 100", "EuroStoxx50", "Dow");
+        ComboNews.getSelectionModel().select("DAX");
+
         //Lime sieht schrecklich aus
         gewinn1.setTextFill(Color.GREEN);
         gewinn2.setTextFill(Color.GREEN);
@@ -289,8 +295,39 @@ public class Controller implements Initializable {
             }
         };
 
+        Thread thread3 = new Thread(){
+            public void run(){
+                News();
+            }
+        };
+
         thread1.run();
         thread2.run();
+        thread3.run();
+    }
+
+    public void News(){
+        if(ComboNews.getValue() == "DAX"){
+            req.DownloadNews("DAX");
+        }
+        else if(ComboNews.getValue() == "SDAX"){
+            req.DownloadNews("SDAX");
+        }
+        else if(ComboNews.getValue() == "MDAX"){
+            req.DownloadNews("MDAX");
+        }
+        else if(ComboNews.getValue() == "TecDAX"){
+            req.DownloadNews("TecDAX");
+        }
+        else if(ComboNews.getValue() == "Dow"){
+            req.DownloadNews("Dow");
+        }
+        else if(ComboNews.getValue() == "Nasdaq 100"){
+            req.DownloadNews("Nasdaq 100");
+        }
+        else if(ComboNews.getValue() == "EuroStoxx50"){
+            req.DownloadNews("EuroStoxx50");
+        }
     }
 
     //Initialisieren der SearchPane
