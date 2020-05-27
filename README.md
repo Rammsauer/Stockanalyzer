@@ -20,7 +20,7 @@ Die Preisausrechnung setzt sich mit der Thematik auseinander, dass man eine Übe
 
 ## Indizes
 
-Zeigt eine Übersicht über die bekannten Indizes wie DAX, TecDAX, SDAX, MDAX, Dow, EuroStoxx50 und Nasdaq 100. Es wird zudem auch eine Übersicht über die aktuelle Marktentwicklung angezeigt, die genau wie bei der Preisausrechnung, in 1 Tag, 5 Tage, 10 Tage, 3 Monate, 6 Monate, 1 Jahr oder 5 Jahre ausgegeben werden kann. Zudem wird auch der aktuelle Wert des Indizes und die Verliere, sowie die Gewinner des Indizes angegeben. Letzteres folgt später da es aktuell noch eingebaut werden muss. Dieser Punkt ist selbst noch nicht vollständig entwickelt und befindet sich aktuell noch teils in der Entwicklung.
+Zeigt eine Übersicht über die bekannten Indizes wie DAX, TecDAX, SDAX, MDAX, Dow, EuroStoxx50 und Nasdaq 100. Es wird zudem auch eine Übersicht über die aktuelle Marktentwicklung angezeigt, die genau wie bei der Preisausrechnung, in 1 Tag, 5 Tage, 10 Tage, 3 Monate, 6 Monate, 1 Jahr oder 5 Jahre ausgegeben werden kann. Zudem wird auch der aktuelle Wert des Indizes und die Verlierer, sowie die Gewinner des Indizes angegeben. Letzteres folgt später da es aktuell noch eingebaut werden muss. Dieser Punkt ist selbst noch nicht vollständig entwickelt und befindet sich aktuell noch teils in der Entwicklung.
 
 </br>
 
