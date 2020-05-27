@@ -136,6 +136,33 @@ public class Controller implements Initializable {
     @FXML
     private ComboBox ComboNews;
 
+    @FXML
+    private TabPane Tabpane;
+
+    @FXML
+    private Tab Übersicht;
+
+    @FXML
+    private Tab AV;
+
+    @FXML
+    private Tab News;
+
+    @FXML
+    private Tab Indizes;
+
+    @FXML
+    private Tab Suche;
+
+    @FXML
+    private Tab Analyse;
+
+    @FXML
+    private Button BNews;
+
+    @FXML
+    private Button BAb;
+
     private String AIsin = "NO0010081235";
 
     private String[] Dax;
@@ -306,6 +333,18 @@ public class Controller implements Initializable {
         thread3.run();
     }
 
+    //Funktion zum wechseln der aktuellen Aktien News in der Überischt
+    public void Newsclick(){
+        System.out.println("1");
+    }
+
+    //Funktion zum abspeichern der Aktie in der Übersicht
+    public void Saveclick(){
+        System.out.println("1");
+    }
+
+
+    //zum abfragen der aktuellen News; wird beim Start ausgeführt
     public void News(){
         if(ComboNews.getValue() == "DAX"){
             req.DownloadNews("DAX");
@@ -387,7 +426,7 @@ public class Controller implements Initializable {
             Label bran2 = new Label(branche[i]);
             Label perc2 = new Label(percent2[i] + "%");
             Button btn1 = new Button("Analyse");
-            Button btn2 = new Button("Abspeichern");
+            Button btn2 = new Button("News");
             ImageView steig = new ImageView();
             Line line = new Line();
 
@@ -448,11 +487,12 @@ public class Controller implements Initializable {
 
             btn1.setOnAction(actionEvent -> {
                 click(isin2.getText());
+                Tabpane.getSelectionModel().select(Übersicht);
                 state = false;
             });
 
             btn2.setOnAction(actionEvent -> {
-                //Aktie abspeichern
+                //Aktien News anzeigen
             });
 
 

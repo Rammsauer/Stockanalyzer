@@ -8,9 +8,9 @@
 
 <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <TabPane layoutX="-3.0" prefHeight="400.0" prefWidth="806.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="Tabpane" layoutX="-3.0" prefHeight="400.0" prefWidth="806.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Suche">
+          <Tab fx:id="Suche" text="Suche">
             <content>
               <AnchorPane prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -24,7 +24,7 @@
                         <Button fx:id="btnsearch" layoutX="292.0" layoutY="12.0" mnemonicParsing="false" onAction="#Initsearch" text="Suchen" />
                         <ScrollPane layoutY="92.0" prefHeight="276.0" prefWidth="790.0">
                            <content>
-                              <Pane fx:id="SearchPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="276.0" prefWidth="775.0" />
+                              <Pane fx:id="SearchPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="276.0" prefWidth="773.0" />
                            </content>
                         </ScrollPane>
                         <Label layoutX="14.0" layoutY="58.0" prefHeight="25.0" prefWidth="59.0" text="Name">
@@ -59,7 +59,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Übersicht">
+          <Tab fx:id="Übersicht" text="Übersicht">
             <content>
               <AnchorPane prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -133,7 +133,7 @@
                         </Label>
                         <Button fx:id="rButton" layoutX="13.0" layoutY="332.0" mnemonicParsing="false" onAction="#refreshbutton" prefHeight="26.0" prefWidth="127.0" text="Aktualisieren" />
                         <Line endX="100.0" layoutX="57.0" layoutY="126.0" startX="-55.0" />
-                        <Line endX="100.0" layoutX="56.0" layoutY="297.0" startX="-55.0" />
+                        <Line endX="335.5" layoutX="56.0" layoutY="297.0" startX="-55.0" />
                         <Text layoutX="13.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Letzte Aktualisierung:" />
                         <Label fx:id="Watch" layoutX="13.0" layoutY="315.0" text="00:00:00" />
                         <Label fx:id="Name" layoutX="166.0" layoutY="6.0" prefHeight="28.0" prefWidth="214.0" text="NEL ASA">
@@ -144,10 +144,13 @@
                         <ComboBox fx:id="Perprice" layoutX="87.0" layoutY="151.0" onAction="#DynamicChange" prefHeight="25.0" prefWidth="53.0" />
                         <Label fx:id="PercentEuro" layoutX="132.0" layoutY="130.0" text="€" />
                         <Label fx:id="PercentZiel" layoutX="63.0" layoutY="130.0" prefHeight="17.0" prefWidth="66.0" text="Label" />
+                        <Button fx:id="BNews" layoutX="168.0" layoutY="333.0" mnemonicParsing="false" onAction="#Newsclick" prefHeight="25.0" prefWidth="62.0" text="News " />
+                        <Button fx:id="BAb" layoutX="279.0" layoutY="333.0" mnemonicParsing="false" onAction="#Saveclick" prefHeight="25.0" prefWidth="105.0" text="Abspeichern" />
+                        <Label layoutX="168.0" layoutY="301.0" text="Weitere Informationen:" />
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Indizes">
+            <Tab fx:id="Indizes" text="Indizes">
               <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -197,12 +200,12 @@
                      </children></AnchorPane>
               </content>
             </Tab>
-            <Tab text="Analyse">
+            <Tab fx:id="Analyse" text="Analyse">
               <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
-            <Tab text="News">
+            <Tab fx:id="News" text="News">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -218,9 +221,22 @@
                      </children></AnchorPane>
               </content>
             </Tab>
-            <Tab text="Aktienverfolger">
+            <Tab fx:id="AV" text="Aktienverfolger">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="11.0" layoutY="10.0" text="Ihre aktuell abgespeicherten Aktien">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Line endX="703.0" layoutX="103.0" layoutY="34.0" startX="-100.0" />
+                        <ScrollPane layoutY="34.0" prefHeight="337.0" prefWidth="806.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                          </content>
+                        </ScrollPane>
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>
