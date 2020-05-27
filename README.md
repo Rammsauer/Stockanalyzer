@@ -8,7 +8,7 @@ Die Suche beschäftigt sich im wesentliche damit, neue Aktien anhand der Namen a
 
 </br>
 
-<img  src="Suche.png" width="500" height="250">
+<img  src="Stock/Git Images/Suche.png" width="500" height="250">
 
 ## Preisausrechnung
 
@@ -16,7 +16,7 @@ Die Preisausrechnung setzt sich mit der Thematik auseinander, dass man eine Übe
 
 </br>
 
-<img  src="Übersicht.png" width="500" height="250">
+<img  src="Stock/Git Images/Übersicht.png" width="500" height="250">
 
 ## Indizes
 
@@ -24,7 +24,7 @@ Zeigt eine Übersicht über die bekannten Indizes wie DAX, TecDAX, SDAX, MDAX, D
 
 </br>
 
-<img  src="Indizes.png" width="500" height="250">
+<img  src="Stock/Git Images/Indizes.png" width="500" height="250">
 
 ## Analyse
 
