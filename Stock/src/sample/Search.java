@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -24,6 +25,9 @@ public class Search {
     private String[] price2;
     private String[] branche;
     private String[] percent2;
+    private String[] Date;
+    private String[] News;
+    private String[] Href;
 
     public Search(){
 
@@ -108,102 +112,78 @@ public class Search {
     }
 
     //Suche der aktuellen Index Werte
-    public void IndexSearch(){
+    public void IndexSearch(String urll, int i){
         try {
             String[] tempname = {"DAX", "MDAX", "TecDAX", "SDAX", "Dow", "Nasdaq100", "EuroStoxx50"};
-            for (int i = 0; i < 1; i++) {
-                //FileReader fr = new FileReader("Stock/Index/" + tempname[i] + ".html");
-                //BufferedReader br = new BufferedReader(fr);
+            String s = Jsoup.connect(urll).get().html();
 
-                //String zeile = "";
-                //String s = "";
+            Pattern Kurs = Pattern.compile("");
+            Pattern Prozent = Pattern.compile("");
+            Pattern IKurs = Pattern.compile("<span class=\"realtime-indicator--value text-size--xxlarge text-weight--medium\">(.*?)</span>");
+            Pattern IProzent = Pattern.compile("<span class=\"text-size--xlarge color--cd-negative\">(.*?)</span>");
+            Pattern IPunkte = Pattern.compile("<span class=\"text-size--xlarge outer-spacing--xsmall-left-lg color--cd-negative\">(.*?)</span>");
 
-                String DAX = Jsoup.connect("https://www.comdirect.de/inf/indizes/detail/werte/standard.html?_=&DETAILS_OFFSET=0&ID_NEWS=976406637&ID_NOTATION=20735&NEWS_CATEGORY=EWF&NEWS_HASH=7bcc144b757975833e2517777de78974e9043ca&OFFSET=0&SEARCH_VALUE=DE0008469008").get().html();
+            Matcher m1 = Kurs.matcher(s);
+            Matcher m2 = Prozent.matcher(s);
+            Matcher m3 = IKurs.matcher(s);
+            Matcher m4 = IProzent.matcher(s);
+            Matcher m5 = IPunkte.matcher(s);
 
-                //while ((zeile = br.readLine()) != null) {
-                //    s = s + zeile;
-                //}
+            String n1 = "";
+            String n2 = "";
+            String n3 = "";
+            String n4 = "";
+            String n5 = "";
 
-                Pattern Kurs = Pattern.compile("");
-                Pattern Prozent = Pattern.compile("");
-                Pattern IKurs = Pattern.compile("<span class=\"realtime-indicator--value text-size--xxlarge text-weight--medium\">(.*?)</span>");
-                Pattern IProzent = Pattern.compile("<span class=\"text-size--xlarge color--cd-negative\">(.*?)</span>");
-                Pattern IPunkte = Pattern.compile("<span class=\"text-size--xlarge outer-spacing--xsmall-left-lg color--cd-negative\">(.*?)</span>");
-
-                Matcher m1 = Kurs.matcher(DAX);
-                Matcher m2 = Prozent.matcher(DAX);
-                Matcher m3 = IKurs.matcher(DAX);
-                Matcher m4 = IProzent.matcher(DAX);
-                Matcher m5 = IPunkte.matcher(DAX);
-
-                String n1 = "";
-                String n2 = "";
-                String n3 = "";
-                String n4 = "";
-                String n5 = "";
-
-                while(m1.find()){
-                    //String t = m1.group(1);
-                    //n1 = n1 + ";" + t;
-                }
-
-                while(m2.find()){
-                    //String t = m2.group(1);
-                    //n2 = n2 + ";" + t;
-                }
-
-                while(m3.find()){
-                    String t = m3.group(1);
-                    n3 = t;
-                }
-
-                while(m4.find()){
-                    String t = m4.group(1);
-                    t = t.replace(" ", "");
-                    t = t.replace("&nbsp;", "");
-                    n4 = t;
-                }
-
-                while(m5.find()){
-                    String t = m5.group(1);
-                    t = t.replace(" ", "");
-                    n5 = t;
-                }
-
-                System.out.println(tempname[i] + ": " + n3);
-                System.out.println(tempname[i] + ": " + n4);
-                System.out.println(tempname[i] + ": " + n5);
-                System.out.println("------------------------");
+            while(m1.find()){
+                //String t = m1.group(1);
+                //n1 = n1 + ";" + t;
             }
+
+            while(m2.find()){
+                //String t = m2.group(1);
+                //n2 = n2 + ";" + t;
+            }
+
+            while(m3.find()){
+                String t = m3.group(1);
+                n3 = t;
+            }
+
+            while(m4.find()){
+                String t = m4.group(1);
+                t = t.replace(" ", "");
+                t = t.replace("&nbsp;", "");
+                n4 = t;
+            }
+
+            while(m5.find()){
+                String t = m5.group(1);
+                t = t.replace(" ", "");
+                n5 = t;
+            }
+
+            //System.out.println(tempname[i] + ": " + n3);
+            //System.out.println(tempname[i] + ": " + n4);
+            //System.out.println(tempname[i] + ": " + n5);
+            //System.out.println("------------------------");
         }
         catch (IOException e) {
         }
     }
 
     //Durchsuchen der News Berichte
-    public void searchNews(String Wert){
+    public void searchNews(String urll){
         try {
-            FileReader fr = new FileReader("Stock/News/" + Wert +".html");
-            BufferedReader br = new BufferedReader(fr);
-
-            List<String> Datum = new ArrayList<String>();
-            List<String> Uhrzeit = new ArrayList<String>();
-            List<String> Nachricht = new ArrayList<String>();
-            List<String> Link = new ArrayList<String>();
-
-            String zeile = "";
-            String s = "";
-
-            while ((zeile = br.readLine()) != null) {
-                s = s + zeile;
-            }
+            String s = Jsoup.connect(urll).get().html();
 
             Pattern Dat = Pattern.compile("<td class=\"table__column table__column--left text-weight--regular text-size--small color--cd-anthracite-50\">(.*?)</td>");
-            //Pattern Nach = Pattern.compile("<td class=\"table__column table__column--left\"></td><a href=\"(.*?)\" class=\"link link--secondary link--seo-prepared\" data-plugin=\"(.*?)\" title=\"(.*?)\">(.*?)</a>");
-            Pattern Lin = Pattern.compile("title=\"(.*?)\">(.*?)</a>");
+            Pattern Nach = Pattern.compile("title=\"(.*?)\">(.*?)</a> </td>");
+            Pattern Link = Pattern.compile("<td class=\"table__column table__column--left\"> <a href=\"(.*?)\"");
 
             Matcher m1 = Dat.matcher(s);
-            Matcher m2 = Lin.matcher(s);
+            Matcher m2 = Nach.matcher(s);
+            Matcher m3 = Link.matcher(s);
 
             String n1 = "";
             String n2 = "";
@@ -212,23 +192,26 @@ public class Search {
             while (m1.find()){
                 String t = m1.group(1);
                 t = t.replace(" ", "");
-                t = t.replace("&#160;", " ");
+                t = t.replace("&nbsp;", " ");
                 n1 = n1 + ";" + t;
             }
 
             while (m2.find()){
-                String t = m2.group(1);
+                String t = m2.group(2);
                 t = t.replace("&amp;", "&");
                 n2 = n2 + ";" + t;
             }
 
-            while (m2.find()){
-                String t = m2.group(2);
-                n3 = n3 + ";" + t;
+            while (m3.find()){
+                String t = m3.group(1);
+                t = "https://www.comdirect.de" + t;
+                t = t.replace("&amp;", "&");
+                n3 = n3 + ";" +  t;
             }
 
-            //System.out.println(n1);
-            //System.out.println("Nachricht " + n2);
+            Date = n1.split(";");
+            News = n2.split(";");
+            Href = n3.split(";");
         }
         catch (IOException e){
 
@@ -356,5 +339,17 @@ public class Search {
 
     public String getName(){
         return Name;
+    }
+
+    public String[] getDate(){
+        return Date;
+    }
+
+    public String[] getNews(){
+        return News;
+    }
+
+    public String[] getHref(){
+        return Href;
     }
 }

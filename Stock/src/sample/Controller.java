@@ -143,6 +143,9 @@ public class Controller implements Initializable {
     private Tab Übersicht;
 
     @FXML
+    private Pane NewsPane;
+
+    @FXML
     private Tab AV;
 
     @FXML
@@ -348,7 +351,39 @@ public class Controller implements Initializable {
     //zum abfragen der aktuellen News; wird beim Start ausgeführt
     public void News(){
         if(ComboNews.getValue() == "DAX"){
+            NewsPane.getChildren().clear();
             req.DownloadNews("DAX");
+
+            String[] Date = req.getDate();
+            String[] News = req.getNews();
+            String[] Href = req.getHref();
+
+            //Hinzufügen der News zur Pane
+            //Hyperlink[] link = new Hyperlink[Dax.length];
+            //Label[] l1 = new Label[Date.length];
+            //Label[] Nl = new Label[Date.length];
+            NewsPane.setMinHeight(60*(Date.length-1));
+            for(int i = 1; i < Date.length; i++){
+                String[] t = Date[i].split(",");
+                Label Date1 = new Label(t[0] + ",");
+                Label Date2 = new Label(t[1]);
+                Line ln = new Line();
+
+                Date1.setLayoutX(15);
+                Date1.setLayoutY(15+((i-1)*60));
+
+                Date2.setLayoutX(15);
+                Date2.setLayoutY(15+((i-1)*60)+17);
+
+                ln.setStartX(0);
+                ln.setStartY(60*i);
+                ln.setEndX(775);
+                ln.setEndY(60*i);
+
+                NewsPane.getChildren().add(Date1);
+                NewsPane.getChildren().add(Date2);
+                NewsPane.getChildren().add(ln);
+            }
         }
         else if(ComboNews.getValue() == "SDAX"){
             req.DownloadNews("SDAX");

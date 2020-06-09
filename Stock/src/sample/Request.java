@@ -23,6 +23,9 @@ public class Request {
     private String[] price2;
     private String[] branche;
     private String[] percent2;
+    private String[] Date;
+    private String[] News;
+    private String[] Href;
 
     //Nach 18 bis 9 Uhr ist Börsenschluss; Am Samstag und Sonntag wird nicht gehandelt
 
@@ -80,23 +83,15 @@ public class Request {
 
     //Downloaden der Kurse für den Index; Wird beim Start ausgeführt
     public void IndexKurs(){
-        try {
-            String[] tempurl = {"https://www.comdirect.de/inf/indizes/detail/werte/standard.html?_=&DETAILS_OFFSET=0&ID_NEWS=976406637&ID_NOTATION=20735&NEWS_CATEGORY=EWF&NEWS_HASH=7bcc144b757975833e2517777de78974e9043ca&OFFSET=0&SEARCH_VALUE=DE0008469008",
-                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_INSTRUMENT=83277&REDIRECT_TYPE=SYMBOL&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=MDAX",
-                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=6623216&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=TECDAX",
-                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=324724",
-                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=35803359&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=DOW",
-                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=35803362&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=NASDAQ+100",
-                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=193736&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=EUROSTOXX50"};
-            String[] tempname = {"DAX", "MDAX", "TecDAX", "SDAX", "Dow", "Nasdaq100", "EuroStoxx50"};
-            for(int i = 0; i < tempname.length; i++){
-                URL urll = new URL(tempurl[i]);
-                Download(url, "Stock/Index/" + tempname[i] + ".html");
-            }
-            search.IndexSearch();
-        }
-        catch (IOException e){
-
+        String[] tempurl = {"https://www.comdirect.de/inf/indizes/detail/werte/standard.html?_=&DETAILS_OFFSET=0&ID_NEWS=976406637&ID_NOTATION=20735&NEWS_CATEGORY=EWF&NEWS_HASH=7bcc144b757975833e2517777de78974e9043ca&OFFSET=0&SEARCH_VALUE=DE0008469008",
+                            "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_INSTRUMENT=83277&REDIRECT_TYPE=SYMBOL&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=MDAX",
+                            "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=6623216&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=TECDAX",
+                            "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=324724",
+                            "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=35803359&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=DOW",
+                            "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=35803362&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=NASDAQ+100",
+                            "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=193736&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=EUROSTOXX50"};
+        for(int i = 0; i < tempurl.length; i++) {
+            search.IndexSearch(tempurl[i], i);
         }
     }
 
@@ -107,23 +102,21 @@ public class Request {
 
     //Downloaden der jeweiligen News Seite
     public void DownloadNews(String Wert){
-        try {
-            if (Wert == "DAX") {
-                URL urll = new URL("https://www.comdirect.de/inf/indizes/detail/news.html?ID_NOTATION=20735");
-                Download(urll, "Stock/News/DAX.html");
+        if (Wert == "DAX") {
+            String urll = "https://www.comdirect.de/inf/indizes/detail/news.html?ID_NOTATION=20735";
 
-                //Starten der Newssuche
-                search.searchNews("DAX");
-            } else if (Wert == "SDAX") {
-            } else if (Wert == "MDAX") {
-            } else if (Wert == "TecDAX") {
-            } else if (Wert == "Dow") {
-            } else if (Wert == "Nasdaq 100") {
-            } else if (Wert == "EuroStoxx50") {
-            }
-        }
-        catch (IOException e){
+            search.searchNews(urll);
 
+            Date = search.getDate();
+            News = search.getNews();
+            Href = search.getHref();
+
+        } else if (Wert == "SDAX") {
+        } else if (Wert == "MDAX") {
+        } else if (Wert == "TecDAX") {
+        } else if (Wert == "Dow") {
+        } else if (Wert == "Nasdaq 100") {
+        } else if (Wert == "EuroStoxx50") {
         }
     }
 
@@ -407,6 +400,18 @@ public class Request {
 
     public String[] getPercent2(){
         return percent2;
+    }
+
+    public String[] getDate(){
+        return Date;
+    }
+
+    public String[] getNews(){
+        return News;
+    }
+
+    public String[] getHref(){
+        return Href;
     }
 
 }
