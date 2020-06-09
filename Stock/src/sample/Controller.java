@@ -325,6 +325,7 @@ public class Controller implements Initializable {
         Thread thread3 = new Thread(){
             public void run(){
                 News();
+                req.IndexKurs();
             }
         };
 

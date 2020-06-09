@@ -78,6 +78,28 @@ public class Request {
         thread1.run();
     }
 
+    //Downloaden der Kurse für den Index; Wird beim Start ausgeführt
+    public void IndexKurs(){
+        try {
+            String[] tempurl = {"https://www.comdirect.de/inf/indizes/detail/werte/standard.html?_=&DETAILS_OFFSET=0&ID_NEWS=976406637&ID_NOTATION=20735&NEWS_CATEGORY=EWF&NEWS_HASH=7bcc144b757975833e2517777de78974e9043ca&OFFSET=0&SEARCH_VALUE=DE0008469008",
+                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_INSTRUMENT=83277&REDIRECT_TYPE=SYMBOL&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=MDAX",
+                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=6623216&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=TECDAX",
+                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=324724",
+                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=35803359&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=DOW",
+                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=35803362&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=NASDAQ+100",
+                                "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=193736&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=EUROSTOXX50"};
+            String[] tempname = {"DAX", "MDAX", "TecDAX", "SDAX", "Dow", "Nasdaq100", "EuroStoxx50"};
+            for(int i = 0; i < tempname.length; i++){
+                URL urll = new URL(tempurl[i]);
+                Download(url, "Stock/Index/" + tempname[i] + ".html");
+            }
+            search.IndexSearch();
+        }
+        catch (IOException e){
+
+        }
+    }
+
     public void DownloadSite() {
         Download(url, "Stock/URL.html");
 

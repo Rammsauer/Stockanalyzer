@@ -1,6 +1,10 @@
 package sample;
 
+import org.jsoup.Jsoup;
+
+import javax.swing.text.Document;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -103,6 +107,80 @@ public class Search {
         }
     }
 
+    //Suche der aktuellen Index Werte
+    public void IndexSearch(){
+        try {
+            String[] tempname = {"DAX", "MDAX", "TecDAX", "SDAX", "Dow", "Nasdaq100", "EuroStoxx50"};
+            for (int i = 0; i < 1; i++) {
+                //FileReader fr = new FileReader("Stock/Index/" + tempname[i] + ".html");
+                //BufferedReader br = new BufferedReader(fr);
+
+                //String zeile = "";
+                //String s = "";
+
+                String DAX = Jsoup.connect("https://www.comdirect.de/inf/indizes/detail/werte/standard.html?_=&DETAILS_OFFSET=0&ID_NEWS=976406637&ID_NOTATION=20735&NEWS_CATEGORY=EWF&NEWS_HASH=7bcc144b757975833e2517777de78974e9043ca&OFFSET=0&SEARCH_VALUE=DE0008469008").get().html();
+
+                //while ((zeile = br.readLine()) != null) {
+                //    s = s + zeile;
+                //}
+
+                Pattern Kurs = Pattern.compile("");
+                Pattern Prozent = Pattern.compile("");
+                Pattern IKurs = Pattern.compile("<span class=\"realtime-indicator--value text-size--xxlarge text-weight--medium\">(.*?)</span>");
+                Pattern IProzent = Pattern.compile("<span class=\"text-size--xlarge color--cd-negative\">(.*?)</span>");
+                Pattern IPunkte = Pattern.compile("<span class=\"text-size--xlarge outer-spacing--xsmall-left-lg color--cd-negative\">(.*?)</span>");
+
+                Matcher m1 = Kurs.matcher(DAX);
+                Matcher m2 = Prozent.matcher(DAX);
+                Matcher m3 = IKurs.matcher(DAX);
+                Matcher m4 = IProzent.matcher(DAX);
+                Matcher m5 = IPunkte.matcher(DAX);
+
+                String n1 = "";
+                String n2 = "";
+                String n3 = "";
+                String n4 = "";
+                String n5 = "";
+
+                while(m1.find()){
+                    //String t = m1.group(1);
+                    //n1 = n1 + ";" + t;
+                }
+
+                while(m2.find()){
+                    //String t = m2.group(1);
+                    //n2 = n2 + ";" + t;
+                }
+
+                while(m3.find()){
+                    String t = m3.group(1);
+                    n3 = t;
+                }
+
+                while(m4.find()){
+                    String t = m4.group(1);
+                    t = t.replace(" ", "");
+                    t = t.replace("&nbsp;", "");
+                    n4 = t;
+                }
+
+                while(m5.find()){
+                    String t = m5.group(1);
+                    t = t.replace(" ", "");
+                    n5 = t;
+                }
+
+                System.out.println(tempname[i] + ": " + n3);
+                System.out.println(tempname[i] + ": " + n4);
+                System.out.println(tempname[i] + ": " + n5);
+                System.out.println("------------------------");
+            }
+        }
+        catch (IOException e) {
+        }
+    }
+
+    //Durchsuchen der News Berichte
     public void searchNews(String Wert){
         try {
             FileReader fr = new FileReader("Stock/News/" + Wert +".html");
@@ -122,7 +200,7 @@ public class Search {
 
             Pattern Dat = Pattern.compile("<td class=\"table__column table__column--left text-weight--regular text-size--small color--cd-anthracite-50\">(.*?)</td>");
             //Pattern Nach = Pattern.compile("<td class=\"table__column table__column--left\"></td><a href=\"(.*?)\" class=\"link link--secondary link--seo-prepared\" data-plugin=\"(.*?)\" title=\"(.*?)\">(.*?)</a>");
-            Pattern Lin = Pattern.compile("<a href=\"(.?)\" class=\"link link--secondary link--seo-prepared\"");
+            Pattern Lin = Pattern.compile("title=\"(.*?)\">(.*?)</a>");
 
             Matcher m1 = Dat.matcher(s);
             Matcher m2 = Lin.matcher(s);
@@ -139,9 +217,8 @@ public class Search {
             }
 
             while (m2.find()){
-                String t = m2.group(0);
+                String t = m2.group(1);
                 t = t.replace("&amp;", "&");
-                System.out.println(t);
                 n2 = n2 + ";" + t;
             }
 
@@ -151,7 +228,7 @@ public class Search {
             }
 
             //System.out.println(n1);
-            System.out.println("1 " + n2);
+            //System.out.println("Nachricht " + n2);
         }
         catch (IOException e){
 
