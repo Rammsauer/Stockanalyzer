@@ -112,11 +112,53 @@ public class Request {
             Href = search.getHref();
 
         } else if (Wert == "SDAX") {
+            String urll = "https://www.comdirect.de/inf/indizes/detail/news.html?ID_NOTATION=324724";
+
+            search.searchNews(urll);
+
+            Date = search.getDate();
+            News = search.getNews();
+            Href = search.getHref();
         } else if (Wert == "MDAX") {
+            String urll = "https://www.comdirect.de/inf/indizes/detail/news.html?ID_INSTRUMENT=83277";
+
+            search.searchNews(urll);
+
+            Date = search.getDate();
+            News = search.getNews();
+            Href = search.getHref();
         } else if (Wert == "TecDAX") {
+            String urll = "https://www.comdirect.de/inf/indizes/detail/news.html?ID_NOTATION=6623216";
+
+            search.searchNews(urll);
+
+            Date = search.getDate();
+            News = search.getNews();
+            Href = search.getHref();
         } else if (Wert == "Dow") {
+            String urll = "https://www.comdirect.de/inf/indizes/detail/news.html?ID_NOTATION=35803359";
+
+            search.searchNews(urll);
+
+            Date = search.getDate();
+            News = search.getNews();
+            Href = search.getHref();
         } else if (Wert == "Nasdaq 100") {
+            String urll = "https://www.comdirect.de/inf/indizes/detail/news.html?ID_NOTATION=35803362";
+
+            search.searchNews(urll);
+
+            Date = search.getDate();
+            News = search.getNews();
+            Href = search.getHref();
         } else if (Wert == "EuroStoxx50") {
+            String urll = "https://www.comdirect.de/inf/indizes/detail/news.html?ID_NOTATION=193736";
+
+            search.searchNews(urll);
+
+            Date = search.getDate();
+            News = search.getNews();
+            Href = search.getHref();
         }
     }
 

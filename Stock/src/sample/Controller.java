@@ -7,6 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -16,9 +19,12 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
@@ -359,49 +365,542 @@ public class Controller implements Initializable {
             String[] Href = req.getHref();
 
             //Hinzufügen der News zur Pane
-            //Hyperlink[] link = new Hyperlink[Dax.length];
-            //Label[] l1 = new Label[Date.length];
-            //Label[] Nl = new Label[Date.length];
             NewsPane.setMinHeight(60*(Date.length-1));
             for(int i = 1; i < Date.length; i++){
                 String[] t = Date[i].split(",");
                 Label Date1 = new Label(t[0] + ",");
                 Label Date2 = new Label(t[1]);
                 Line ln = new Line();
+                Label Nl = new Label(News[i]);
+                Hyperlink l1 = new Hyperlink(Href[i]);
 
                 Date1.setLayoutX(15);
-                Date1.setLayoutY(15+((i-1)*60));
+                Date1.setLayoutY(10+((i-1)*60));
+                Date1.setFont(Font.font(20));
 
                 Date2.setLayoutX(15);
-                Date2.setLayoutY(15+((i-1)*60)+17);
+                Date2.setLayoutY(10+((i-1)*60)+20);
 
                 ln.setStartX(0);
                 ln.setStartY(60*i);
                 ln.setEndX(775);
                 ln.setEndY(60*i);
 
+                if(t[0].contains("Heute")){
+                    Nl.setLayoutX(85);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(80);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else if(t[0].equals("Gestern")){
+                    Nl.setLayoutX(100);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(95);
+                    l1.setLayoutY(25+((i-1)*60));
+
+                }
+                else if(t[0].contains("Vorgestern")){
+                    Nl.setLayoutX(125);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(120);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else{
+                    Nl.setLayoutX(90);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(85);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                
+                l1.setFont(Font.font(12));
+                l1.setOnAction(s -> {
+                    if(Desktop.isDesktopSupported())
+                    {
+                        try {
+                            Desktop.getDesktop().browse(new URI(l1.getText()));
+                        } catch (IOException|URISyntaxException e) {
+                        }
+                    }
+                });
+
                 NewsPane.getChildren().add(Date1);
                 NewsPane.getChildren().add(Date2);
                 NewsPane.getChildren().add(ln);
+                NewsPane.getChildren().add(Nl);
+                NewsPane.getChildren().add(l1);
             }
         }
         else if(ComboNews.getValue() == "SDAX"){
+            NewsPane.getChildren().clear();
             req.DownloadNews("SDAX");
+
+            String[] Date = req.getDate();
+            String[] News = req.getNews();
+            String[] Href = req.getHref();
+
+            //Hinzufügen der News zur Pane
+            NewsPane.setMinHeight(60*(Date.length-1));
+            for(int i = 1; i < Date.length; i++){
+                String[] t = Date[i].split(",");
+                Label Date1 = new Label(t[0] + ",");
+                Label Date2 = new Label(t[1]);
+                Line ln = new Line();
+                Label Nl = new Label(News[i]);
+                Hyperlink l1 = new Hyperlink(Href[i]);
+
+                Date1.setLayoutX(15);
+                Date1.setLayoutY(10+((i-1)*60));
+                Date1.setFont(Font.font(20));
+
+                Date2.setLayoutX(15);
+                Date2.setLayoutY(10+((i-1)*60)+20);
+
+                ln.setStartX(0);
+                ln.setStartY(60*i);
+                ln.setEndX(775);
+                ln.setEndY(60*i);
+
+                if(t[0].contains("Heute")){
+                    Nl.setLayoutX(85);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(80);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else if(t[0].equals("Gestern")){
+                    Nl.setLayoutX(100);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(95);
+                    l1.setLayoutY(25+((i-1)*60));
+
+                }
+                else if(t[0].contains("Vorgestern")){
+                    Nl.setLayoutX(125);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(120);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else{
+                    Nl.setLayoutX(90);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(85);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+
+                l1.setFont(Font.font(12));
+                l1.setOnAction(s -> {
+                    if(Desktop.isDesktopSupported())
+                    {
+                        try {
+                            Desktop.getDesktop().browse(new URI(l1.getText()));
+                        } catch (IOException|URISyntaxException e) {
+                        }
+                    }
+                });
+
+                NewsPane.getChildren().add(Date1);
+                NewsPane.getChildren().add(Date2);
+                NewsPane.getChildren().add(ln);
+                NewsPane.getChildren().add(Nl);
+                NewsPane.getChildren().add(l1);
+            }
         }
         else if(ComboNews.getValue() == "MDAX"){
+            NewsPane.getChildren().clear();
             req.DownloadNews("MDAX");
+
+            String[] Date = req.getDate();
+            String[] News = req.getNews();
+            String[] Href = req.getHref();
+
+            //Hinzufügen der News zur Pane
+            NewsPane.setMinHeight(60*(Date.length-1));
+            for(int i = 1; i < Date.length; i++){
+                String[] t = Date[i].split(",");
+                Label Date1 = new Label(t[0] + ",");
+                Label Date2 = new Label(t[1]);
+                Line ln = new Line();
+                Label Nl = new Label(News[i]);
+                Hyperlink l1 = new Hyperlink(Href[i]);
+
+                Date1.setLayoutX(15);
+                Date1.setLayoutY(10+((i-1)*60));
+                Date1.setFont(Font.font(20));
+
+                Date2.setLayoutX(15);
+                Date2.setLayoutY(10+((i-1)*60)+20);
+
+                ln.setStartX(0);
+                ln.setStartY(60*i);
+                ln.setEndX(775);
+                ln.setEndY(60*i);
+
+                if(t[0].contains("Heute")){
+                    Nl.setLayoutX(85);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(80);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else if(t[0].equals("Gestern")){
+                    Nl.setLayoutX(100);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(95);
+                    l1.setLayoutY(25+((i-1)*60));
+
+                }
+                else if(t[0].contains("Vorgestern")){
+                    Nl.setLayoutX(125);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(120);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else{
+                    Nl.setLayoutX(90);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(85);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+
+                l1.setFont(Font.font(12));
+                l1.setOnAction(s -> {
+                    if(Desktop.isDesktopSupported())
+                    {
+                        try {
+                            Desktop.getDesktop().browse(new URI(l1.getText()));
+                        } catch (IOException|URISyntaxException e) {
+                        }
+                    }
+                });
+
+                NewsPane.getChildren().add(Date1);
+                NewsPane.getChildren().add(Date2);
+                NewsPane.getChildren().add(ln);
+                NewsPane.getChildren().add(Nl);
+                NewsPane.getChildren().add(l1);
+            }
         }
         else if(ComboNews.getValue() == "TecDAX"){
+            NewsPane.getChildren().clear();
             req.DownloadNews("TecDAX");
+
+            String[] Date = req.getDate();
+            String[] News = req.getNews();
+            String[] Href = req.getHref();
+
+            //Hinzufügen der News zur Pane
+            NewsPane.setMinHeight(60*(Date.length-1));
+            for(int i = 1; i < Date.length; i++){
+                String[] t = Date[i].split(",");
+                Label Date1 = new Label(t[0] + ",");
+                Label Date2 = new Label(t[1]);
+                Line ln = new Line();
+                Label Nl = new Label(News[i]);
+                Hyperlink l1 = new Hyperlink(Href[i]);
+
+                Date1.setLayoutX(15);
+                Date1.setLayoutY(10+((i-1)*60));
+                Date1.setFont(Font.font(20));
+
+                Date2.setLayoutX(15);
+                Date2.setLayoutY(10+((i-1)*60)+20);
+
+                ln.setStartX(0);
+                ln.setStartY(60*i);
+                ln.setEndX(775);
+                ln.setEndY(60*i);
+
+                if(t[0].contains("Heute")){
+                    Nl.setLayoutX(85);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(80);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else if(t[0].equals("Gestern")){
+                    Nl.setLayoutX(100);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(95);
+                    l1.setLayoutY(25+((i-1)*60));
+
+                }
+                else if(t[0].contains("Vorgestern")){
+                    Nl.setLayoutX(125);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(120);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else{
+                    Nl.setLayoutX(90);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(85);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+
+                l1.setFont(Font.font(12));
+                l1.setOnAction(s -> {
+                    if(Desktop.isDesktopSupported())
+                    {
+                        try {
+                            Desktop.getDesktop().browse(new URI(l1.getText()));
+                        } catch (IOException|URISyntaxException e) {
+                        }
+                    }
+                });
+
+                NewsPane.getChildren().add(Date1);
+                NewsPane.getChildren().add(Date2);
+                NewsPane.getChildren().add(ln);
+                NewsPane.getChildren().add(Nl);
+                NewsPane.getChildren().add(l1);
+            }
         }
         else if(ComboNews.getValue() == "Dow"){
+            NewsPane.getChildren().clear();
             req.DownloadNews("Dow");
+
+            String[] Date = req.getDate();
+            String[] News = req.getNews();
+            String[] Href = req.getHref();
+
+            //Hinzufügen der News zur Pane
+            NewsPane.setMinHeight(60*(Date.length-1));
+            for(int i = 1; i < Date.length; i++){
+                String[] t = Date[i].split(",");
+                Label Date1 = new Label(t[0] + ",");
+                Label Date2 = new Label(t[1]);
+                Line ln = new Line();
+                Label Nl = new Label(News[i]);
+                Hyperlink l1 = new Hyperlink(Href[i]);
+
+                Date1.setLayoutX(15);
+                Date1.setLayoutY(10+((i-1)*60));
+                Date1.setFont(Font.font(20));
+
+                Date2.setLayoutX(15);
+                Date2.setLayoutY(10+((i-1)*60)+20);
+
+                ln.setStartX(0);
+                ln.setStartY(60*i);
+                ln.setEndX(775);
+                ln.setEndY(60*i);
+
+                if(t[0].contains("Heute")){
+                    Nl.setLayoutX(85);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(80);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else if(t[0].equals("Gestern")){
+                    Nl.setLayoutX(100);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(95);
+                    l1.setLayoutY(25+((i-1)*60));
+
+                }
+                else if(t[0].contains("Vorgestern")){
+                    Nl.setLayoutX(125);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(120);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else{
+                    Nl.setLayoutX(90);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(85);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+
+                l1.setFont(Font.font(12));
+                l1.setOnAction(s -> {
+                    if(Desktop.isDesktopSupported())
+                    {
+                        try {
+                            Desktop.getDesktop().browse(new URI(l1.getText()));
+                        } catch (IOException|URISyntaxException e) {
+                        }
+                    }
+                });
+
+                NewsPane.getChildren().add(Date1);
+                NewsPane.getChildren().add(Date2);
+                NewsPane.getChildren().add(ln);
+                NewsPane.getChildren().add(Nl);
+                NewsPane.getChildren().add(l1);
+            }
         }
         else if(ComboNews.getValue() == "Nasdaq 100"){
+            NewsPane.getChildren().clear();
             req.DownloadNews("Nasdaq 100");
+
+            String[] Date = req.getDate();
+            String[] News = req.getNews();
+            String[] Href = req.getHref();
+
+            //Hinzufügen der News zur Pane
+            NewsPane.setMinHeight(60*(Date.length-1));
+            for(int i = 1; i < Date.length; i++){
+                String[] t = Date[i].split(",");
+                Label Date1 = new Label(t[0] + ",");
+                Label Date2 = new Label(t[1]);
+                Line ln = new Line();
+                Label Nl = new Label(News[i]);
+                Hyperlink l1 = new Hyperlink(Href[i]);
+
+                Date1.setLayoutX(15);
+                Date1.setLayoutY(10+((i-1)*60));
+                Date1.setFont(Font.font(20));
+
+                Date2.setLayoutX(15);
+                Date2.setLayoutY(10+((i-1)*60)+20);
+
+                ln.setStartX(0);
+                ln.setStartY(60*i);
+                ln.setEndX(775);
+                ln.setEndY(60*i);
+
+                if(t[0].contains("Heute")){
+                    Nl.setLayoutX(85);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(80);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else if(t[0].equals("Gestern")){
+                    Nl.setLayoutX(100);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(95);
+                    l1.setLayoutY(25+((i-1)*60));
+
+                }
+                else if(t[0].contains("Vorgestern")){
+                    Nl.setLayoutX(125);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(120);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else{
+                    Nl.setLayoutX(90);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(85);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+
+                l1.setFont(Font.font(12));
+                l1.setOnAction(s -> {
+                    if(Desktop.isDesktopSupported())
+                    {
+                        try {
+                            Desktop.getDesktop().browse(new URI(l1.getText()));
+                        } catch (IOException|URISyntaxException e) {
+                        }
+                    }
+                });
+
+                NewsPane.getChildren().add(Date1);
+                NewsPane.getChildren().add(Date2);
+                NewsPane.getChildren().add(ln);
+                NewsPane.getChildren().add(Nl);
+                NewsPane.getChildren().add(l1);
+            }
         }
         else if(ComboNews.getValue() == "EuroStoxx50"){
+            NewsPane.getChildren().clear();
             req.DownloadNews("EuroStoxx50");
+
+            String[] Date = req.getDate();
+            String[] News = req.getNews();
+            String[] Href = req.getHref();
+
+            //Hinzufügen der News zur Pane
+            NewsPane.setMinHeight(60*(Date.length-1));
+            for(int i = 1; i < Date.length; i++){
+                String[] t = Date[i].split(",");
+                Label Date1 = new Label(t[0] + ",");
+                Label Date2 = new Label(t[1]);
+                Line ln = new Line();
+                Label Nl = new Label(News[i]);
+                Hyperlink l1 = new Hyperlink(Href[i]);
+
+                Date1.setLayoutX(15);
+                Date1.setLayoutY(10+((i-1)*60));
+                Date1.setFont(Font.font(20));
+
+                Date2.setLayoutX(15);
+                Date2.setLayoutY(10+((i-1)*60)+20);
+
+                ln.setStartX(0);
+                ln.setStartY(60*i);
+                ln.setEndX(775);
+                ln.setEndY(60*i);
+
+                if(t[0].contains("Heute")){
+                    Nl.setLayoutX(85);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(80);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else if(t[0].equals("Gestern")){
+                    Nl.setLayoutX(100);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(95);
+                    l1.setLayoutY(25+((i-1)*60));
+
+                }
+                else if(t[0].contains("Vorgestern")){
+                    Nl.setLayoutX(125);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(120);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+                else{
+                    Nl.setLayoutX(90);
+                    Nl.setLayoutY(5+((i-1)*60));
+                    Nl.setFont(Font.font(18));
+                    l1.setLayoutX(85);
+                    l1.setLayoutY(25+((i-1)*60));
+                }
+
+                l1.setFont(Font.font(12));
+                l1.setOnAction(s -> {
+                    if(Desktop.isDesktopSupported())
+                    {
+                        try {
+                            Desktop.getDesktop().browse(new URI(l1.getText()));
+                        } catch (IOException|URISyntaxException e) {
+                        }
+                    }
+                });
+
+                NewsPane.getChildren().add(Date1);
+                NewsPane.getChildren().add(Date2);
+                NewsPane.getChildren().add(ln);
+                NewsPane.getChildren().add(Nl);
+                NewsPane.getChildren().add(l1);
+            }
         }
     }
 
