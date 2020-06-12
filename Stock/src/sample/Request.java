@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class Request {
 
-    private URL url;
+    private String url;
     private double price;
     private double percent;
     private double perPrice;
@@ -30,7 +30,7 @@ public class Request {
     //Nach 18 bis 9 Uhr ist Börsenschluss; Am Samstag und Sonntag wird nicht gehandelt
 
 
-    public Request(URL url){
+    public Request(String url){
         this.url = url;
 
         Thread thread2 = new Thread(){
@@ -39,18 +39,11 @@ public class Request {
             }
         };
 
-        Thread thread3 = new Thread(){
-            public void run(){
-                DownloadSite();
-            }
-        };
-
         thread2.run();
-        thread3.run();
 
         //Setting Percent and Price from Download Site
         search = new Search();
-        search.searcheng();
+        search.searcheng(url);
         price = search.getPrice();
         if((price > 0) && (price < 1)){
             price = Math.round(search.getPrice()*10000)/10000.0;
@@ -93,11 +86,6 @@ public class Request {
         for(int i = 0; i < tempurl.length; i++) {
             search.IndexSearch(tempurl[i], i);
         }
-    }
-
-    public void DownloadSite() {
-        Download(url, "Stock/URL.html");
-
     }
 
     //Downloaden der jeweiligen News Seite
@@ -192,43 +180,22 @@ public class Request {
                     CheckStock(urll, "Stock/Images/Stock Images/" + g[i] + "/" + g[i] + t[n] + ".png"); //Zum checken ob ein Intervall dazwischen liegt
                 }
             }
-
         }
         catch(IOException e){
 
         }
     }
 
-    //Downloade alle Kurse von den Indizies
-    public void DownloadIndexK(String wert, String Index){
-        try{
-            Search s = new Search();
-            URL urll = new URL("https://www.comdirect.de/inf/indizes/werte/" + wert);
-            Download(urll, "Stock/IndexURL/" + Index + ".html");
-            s.searchIndex(Index);
-
-        }
-        catch (MalformedURLException e){
-
-        }
-    }
-
-    public void DownloadSearch(String s){
-        try{
-            s = s.replace(" ", "+");
-            s = s.toUpperCase();
-            URL urll = new URL("https://kurse.boerse.ard.de/ard/kurse_einzelkurs_suche.htn?suchbegriff=" + s + "&seite=suche&exitPoint=all&tabSearch=securityCategoryCode~SHARE");
-            Download(urll, "Stock/SearchURL.html");
-            search.searchsearch();
-            name = search.getname();
-            isin = search.getIsin();
-            price2 = search.getPrice2();
-            branche = search.getBranche();
-            percent2 = search.getPercent2();
-        }
-        catch(IOException e){
-
-        }
+    public void DownloadSearch(String s1){
+        s1 = s1.replace(" ", "+");
+        s1 = s1.toUpperCase();
+        String s2 = "https://kurse.boerse.ard.de/ard/kurse_einzelkurs_suche.htn?suchbegriff=" + s1 + "&seite=suche&exitPoint=all&tabSearch=securityCategoryCode~SHARE";
+        search.searchsearch(s2);
+        name = search.getname();
+        isin = search.getIsin();
+        price2 = search.getPrice2();
+        branche = search.getBranche();
+        percent2 = search.getPercent2();
     }
 
 

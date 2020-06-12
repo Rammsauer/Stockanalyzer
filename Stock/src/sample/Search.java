@@ -33,18 +33,9 @@ public class Search {
 
     }
 
-    public void searcheng(){
+    public void searcheng(String urll){
         try{
-            FileReader fr = new FileReader("Stock/URL.html");
-            BufferedReader br = new BufferedReader(fr);
-
-            String zeile = "";
-            String s = "";
-
-            while( (zeile = br.readLine()) != null )
-            {
-                s = s + zeile;
-            }
+            String s = Jsoup.connect(urll).get().html();
 
             Pattern rex1r = Pattern.compile("<span class=\"realtime-indicator--value text-size--xxlarge text-weight--medium\">(.*?)<\\/span>");
             Pattern rex1o = Pattern.compile("<span class=\"text-size--xxlarge text-weight--medium\">(.*?)</span>");
@@ -88,7 +79,7 @@ public class Search {
                 String m = m2n.group(1);
                 m = m.replace(" ", "");
                 m = m.replace(",", ".");
-                m = m.replace("&#160;%", "");
+                m = m.replace("&nbsp;%", "");
                 percent = Double.parseDouble(m);
             }
             while (m3.find()){
@@ -218,21 +209,13 @@ public class Search {
         }
     }
 
-    public void searchsearch(){
+    public void searchsearch(String urll){
         try {
-            FileReader fr = new FileReader("Stock/SearchURL.html");
-            BufferedReader br = new BufferedReader(fr);
-
-            String zeile = "";
-            String s = "";
-
-            while ((zeile = br.readLine()) != null) {
-                s = s + zeile;
-            }
+            String s = Jsoup.connect(urll).get().html();
 
             Pattern Name = Pattern.compile("<td headers=\"bezeichnung\" class=\"tleft rightborder\"><a href=\"https://kurse.boerse.ard.de/ard/kurse_einzelkurs_uebersicht.htn\\?i=(.*?)\"><strong>(.*?)</strong></a></td>");
-            Pattern Isin = Pattern.compile("<td headers=\"isin\" class=\"tleft rightborder\">(.*?)</td>");
-            Pattern Price = Pattern.compile(".gif\" class=\"rightfloat\" alt=\"(.*?)\" /><span class=\"rightfloat\">(.*?)</span></td>");
+            Pattern Isin = Pattern.compile("<td headers=\"isin\" class=\"tleft rightborder\">(.*?)</td> ");
+            Pattern Price = Pattern.compile("<td headers=\"kurs\" class=\"tright rightborder depot_img\"><img src=\"(.*?)\" class=\"rightfloat\" alt=\"(.*?)\"><span class=\"rightfloat\">(.*?)</span></td>");
             Pattern Branche = Pattern.compile("<td headers=\"branche\" class=\"tleft rightborder\">(.*?)</td>");
             Pattern Percent = Pattern.compile("<td headers=\"prozent\" class=\"tright rightborder\"><span class=\"(.*?)\">(.*?)</span></td>");
 
@@ -254,12 +237,11 @@ public class Search {
 
             while (m2.find()){
                 n2 = n2 + ";" + m2.group(1);
-                //System.out.println(m2.group(1));
             }
 
             while (m3.find()){
-                String t = m3.group(2);
-                t = t.replace("&nbsp;&euro;&nbsp;", "");
+                String t = m3.group(3);
+                t = t.replace("&nbsp", "");
                 t = t.replace(",", ".");
                 n3 = n3 + ";" + t;
             }
@@ -277,33 +259,35 @@ public class Search {
 
             name = n1.split(";");
             isin = n2.split(";");
-            price2 = n3.split(";");
+            String[] price3 = n3.split(";");
             branche = n5.split(";");
             percent2 = n6.split(";");
-        }
-        catch(IOException e){
 
-        }
-    }
+            //Preis zuordnen da fehler beim auslesen vorhanden sind
+            price2 = new String[name.length];
+            price2[0] = "";
+            int n = 1;
+            for(int i = 0;i < price3.length;i++){
+                if(price3[i].contains(".")){
+                    price2[n] = price3[i];
+                    n++;
+                }
+                else{
 
-    public void searchIndex(String Index){
-        try{
-            FileReader fr = new FileReader("Stock/IndexURL/" + Index + ".html");
-            BufferedReader br = new BufferedReader(fr);
+                }
+            }
 
-            String zeile = "";
-            String s = "";
-
-            while( (zeile = br.readLine()) != null )
-            {
-                s = s + zeile;
+            //Prozent kann auch das Ergebniss "--" zurückliefern
+            for(int i = 0;i < percent2.length;i++){
+                if(percent2[i].contains("--")){
+                    percent2[i] = "0";
+                }
             }
         }
         catch(IOException e){
 
         }
     }
-
 
     public String[] getname(){
         return name;

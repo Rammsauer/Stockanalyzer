@@ -327,7 +327,7 @@ public class Controller implements Initializable {
         Thread thread2 = new Thread(){
             public void run(){
                 DynamicChange();
-                initIndex();
+                changeIndex();
             }
         };
 
@@ -986,20 +986,24 @@ public class Controller implements Initializable {
             perc2.setLayoutY((32*(i-1)));
             perc2.setFont(new Font(14));
 
-            steig.setLayoutX(577);
-            steig.setLayoutY((32*(i-1)));
+            steig.setLayoutX(582);
+            steig.setLayoutY((32*(i-1)+1));
 
             try {
                 percent2[i] = percent2[i].replace(",", ".");
                 if (Double.parseDouble(percent2[i]) < 0) {
                     Image image = new Image(new File("Stock/down.png").toURI().toURL().toExternalForm());
                     steig.setImage(image);
+                    perc2.setTextFill(Color.RED);
                 } else if (Double.parseDouble(percent2[i]) > 0) {
                     Image image = new Image(new File("Stock/up.png").toURI().toURL().toExternalForm());
                     steig.setImage(image);
+                    perc2.setTextFill(Color.GREEN);
                 } else if (Double.parseDouble(percent2[i]) == 0) {
                     Image image = new Image(new File("Stock/normal.png").toURI().toURL().toExternalForm());
                     steig.setImage(image);
+                    perc2.setTextFill(Color.GRAY);
+                    perc2.setText("±0%");
                 }
             }
             catch (IOException e){
@@ -1316,17 +1320,6 @@ public class Controller implements Initializable {
                 e.printStackTrace();
             }
         }
-    }
-
-    public void initIndex(){
-        Database db = new Database();
-        for(int i = 0; i < 7; i++){
-            String k = db.getKName()[i];
-            String s = db.getSName()[i];
-            req.DownloadIndexK(k, s);
-        }
-        changeIndex();
-
     }
 
     //Actionmethode fürs verändern der Combobox bei den Indizes
@@ -1771,8 +1764,7 @@ public class Controller implements Initializable {
             hour = 0;
 
             String t = "https://www.comdirect.de/inf/aktien/" + isin;
-            URL url = new URL(t);
-            req = new Request(url);
+            req = new Request(t);
             Kurs.setText(req.getPrice() + "");
             TextZiel.setText(req.getPrice() + 1 + "");
             Name.setText(req.getName());  //Später wieder ausbauen, sieht einfach schrecklich aus
