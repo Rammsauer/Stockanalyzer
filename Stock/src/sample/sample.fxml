@@ -158,13 +158,13 @@
                         <Line endX="255.0" endY="305.0" layoutX="140.0" layoutY="72.0" startX="255.0" startY="-115.0" />
                         <ScrollPane fx:id="Scroll" layoutX="182.0" prefHeight="367.0" prefWidth="213.0">
                            <content>
-                              <Pane fx:id="DaxPane" prefHeight="1718.0" prefWidth="195.0" />
+                              <Pane fx:id="DaxPane" prefHeight="1718.0" prefWidth="198.0" />
                            </content></ScrollPane>
                         <ComboBox fx:id="ComboIndex" layoutX="14.0" layoutY="24.0" onAction="#changeIndex" prefHeight="26.0" prefWidth="163.0" />
                         <ComboBox fx:id="Indextime" layoutX="14.0" layoutY="301.0" onAction="#changeIndextime" prefHeight="26.0" prefWidth="163.0" />
                         <Line endX="100.0" layoutX="82.0" layoutY="58.0" startX="-100.0" />
                         <Label layoutX="14.0" layoutY="8.0" text="Börsenindex" />
-                        <Label layoutX="14.0" layoutY="80.0" text="12.227,85">
+                        <Label fx:id="IndexKurs" layoutX="14.0" layoutY="80.0" text="12.227,85">
                            <font>
                               <Font size="32.0" />
                            </font>

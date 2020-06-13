@@ -1,15 +1,7 @@
 package sample;
 
 import org.jsoup.Jsoup;
-
-import javax.swing.text.Document;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +11,12 @@ public class Search {
     private double price;
     private double percent;
     private String Name;
+
+    private String[] Kurs;
+    private String[] Prozent;
+    private String IKurs;
+    private String IProzent;
+    private String IPunkte;
 
     private String[] name;
     private String[] isin;
@@ -73,6 +71,7 @@ public class Search {
                 m = m.replace(" ", "");
                 m = m.replace(",", ".");
                 m = m.replace("&#160;%", "");
+                m = m.replace("&nbsp;%", "");
                 percent = Double.parseDouble(m);
             }
             while (m2n.find()){
@@ -95,7 +94,6 @@ public class Search {
                 n = n.replace("     ", "");
                 n = n.replace("&#38;","&");
                 Name = n;
-
             }
         }
         catch(IOException e){
@@ -103,13 +101,13 @@ public class Search {
     }
 
     //Suche der aktuellen Index Werte
-    public void IndexSearch(String urll, int i){
+    public void IndexSearch(String urll){
         try {
-            String[] tempname = {"DAX", "MDAX", "TecDAX", "SDAX", "Dow", "Nasdaq100", "EuroStoxx50"};
             String s = Jsoup.connect(urll).get().html();
+            int n = 1;
 
-            Pattern Kurs = Pattern.compile("");
-            Pattern Prozent = Pattern.compile("");
+            Pattern Kurs = Pattern.compile("<td class=\"table__column--top\" data-label=\"Aktuell\">(.*?)</td>");
+            Pattern Prozent = Pattern.compile("<td class=\"table__column--right color--cd-(.*?)\">(.*?)</td>");
             Pattern IKurs = Pattern.compile("<span class=\"realtime-indicator--value text-size--xxlarge text-weight--medium\">(.*?)</span>");
             Pattern IProzent = Pattern.compile("<span class=\"text-size--xlarge color--cd-negative\">(.*?)</span>");
             Pattern IPunkte = Pattern.compile("<span class=\"text-size--xlarge outer-spacing--xsmall-left-lg color--cd-negative\">(.*?)</span>");
@@ -127,13 +125,19 @@ public class Search {
             String n5 = "";
 
             while(m1.find()){
-                //String t = m1.group(1);
-                //n1 = n1 + ";" + t;
+                String t = m1.group(1);
+                if(n % 2 == 1){
+                    n1 = n1 + ";" + t;
+                }
+                n++;
             }
 
             while(m2.find()){
-                //String t = m2.group(1);
-                //n2 = n2 + ";" + t;
+                String t = m2.group(2);
+                t = t.replace("&nbsp;%","");
+                t = t.replace("+","");
+                t = t.replace("-","");
+                n2 = n2 + ";" + t;
             }
 
             while(m3.find()){
@@ -154,10 +158,11 @@ public class Search {
                 n5 = t;
             }
 
-            //System.out.println(tempname[i] + ": " + n3);
-            //System.out.println(tempname[i] + ": " + n4);
-            //System.out.println(tempname[i] + ": " + n5);
-            //System.out.println("------------------------");
+            this.Kurs = n1.split(";");
+            this.Prozent = n2.split(";");
+            this.IKurs = n3;
+            this.IProzent = n4;
+            this.IPunkte = n5;
         }
         catch (IOException e) {
         }
@@ -335,5 +340,25 @@ public class Search {
 
     public String[] getHref(){
         return Href;
+    }
+
+    public String[] getKurs(){
+        return Kurs;
+    }
+
+    public String[] getProzent(){
+        return Prozent;
+    }
+
+    public String getIKurs(){
+        return IKurs;
+    }
+
+    public String getIProzent(){
+        return IProzent;
+    }
+
+    public String getIPunkte(){
+        return IPunkte;
     }
 }

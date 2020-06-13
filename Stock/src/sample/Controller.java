@@ -17,7 +17,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 
 import java.awt.*;
 import java.io.File;
@@ -171,6 +170,8 @@ public class Controller implements Initializable {
 
     @FXML
     private Button BAb;
+
+    @FXML Label IndexKurs;
 
     private String AIsin = "NO0010081235";
 
@@ -334,7 +335,7 @@ public class Controller implements Initializable {
         Thread thread3 = new Thread(){
             public void run(){
                 News();
-                req.IndexKurs();
+                req.DownloadIndex();
             }
         };
 
@@ -1592,31 +1593,88 @@ public class Controller implements Initializable {
     }
 
     public void editPane(String s){
+        String[] Kurs;
+        String[] Prozent;
+        String IKurs = "";
+        String IProzent;
+        String IPunkte;
+
         DaxPane.getChildren().clear();
 
         int size = 0;
 
         if(s == "DAX"){
             size = Dax.length;
+            req.IndexKurs("DAX");
+
+            Kurs = req.getKurs();
+            Prozent = req.getProzent();
+            IKurs = req.getIKurs();
+            IProzent = req.getIProzent();
+            IPunkte = req.getIPunkte();
         }
         else if(s == "TecDAX"){
             size = TecDAX.length;
+            req.IndexKurs("TecDAX");
+
+            Kurs = req.getKurs();
+            Prozent = req.getProzent();
+            IKurs = req.getIKurs();
+            IProzent = req.getIProzent();
+            IPunkte = req.getIPunkte();
         }
         else if(s == "SDAX"){
             size = SDAX.length;
+            req.IndexKurs("SDAX");
+
+            Kurs = req.getKurs();
+            Prozent = req.getProzent();
+            IKurs = req.getIKurs();
+            IProzent = req.getIProzent();
+            IPunkte = req.getIPunkte();
         }
         else if(s == "MDAX"){
             size = MDAX.length;
+            req.IndexKurs("MDAX");
+
+            Kurs = req.getKurs();
+            Prozent = req.getProzent();
+            IKurs = req.getIKurs();
+            IProzent = req.getIProzent();
+            IPunkte = req.getIPunkte();
         }
         else if(s == "Dow"){
             size = Dow.length;
+            req.IndexKurs("Dow");
+
+            Kurs = req.getKurs();
+            Prozent = req.getProzent();
+            IKurs = req.getIKurs();
+            IProzent = req.getIProzent();
+            IPunkte = req.getIPunkte();
         }
         else if(s == "Nasdaq 100"){
             size = Nasdaq.length;
+            req.IndexKurs("Nasdaq 100");
+
+            Kurs = req.getKurs();
+            Prozent = req.getProzent();
+            IKurs = req.getIKurs();
+            IProzent = req.getIProzent();
+            IPunkte = req.getIPunkte();
         }
         else if(s == "EuroStoxx50"){
             size = EuroStoxx50.length;
+            req.IndexKurs("EuroStoxx50");
+
+            Kurs = req.getKurs();
+            Prozent = req.getProzent();
+            IKurs = req.getIKurs();
+            IProzent = req.getIProzent();
+            IPunkte = req.getIPunkte();
         }
+
+        IndexKurs.setText(IKurs);
 
         DaxPane.setPrefHeight(58*size);
 
@@ -1624,8 +1682,9 @@ public class Controller implements Initializable {
             Button btn = new Button("Analyse");
             Label is = new Label("ISIN:");
             Label ks = new Label("Kurs:");
+            Label ik = new Label();
             Label ksn = new Label("");
-            Label trenn = new Label("-------------------------------------------");
+            Line trenn = new Line();
             Label ln = null;
             Label isk = null;
 
@@ -1684,8 +1743,10 @@ public class Controller implements Initializable {
             ksn.setLayoutX(10);
             ksn.setLayoutY(25 + 57*i);
 
-            trenn.setLayoutX(0);
-            trenn.setLayoutY(53 + 57*i);
+            trenn.setStartX(0);
+            trenn.setEndX(198);
+            trenn.setStartY(45 + 57 * i);
+            trenn.setEndY(45 + 57 * i);
 
             DaxPane.getChildren().add(btn);
             DaxPane.getChildren().add(ln);

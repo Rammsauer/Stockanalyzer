@@ -1,15 +1,11 @@
 package sample;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Request {
-
-    private String url;
     private double price;
     private double percent;
     private double perPrice;
@@ -17,6 +13,12 @@ public class Request {
     private String ONotation = "204941498";
     private Search search;
     private String Name;
+
+    private String[] Kurs;
+    private String[] Prozent;
+    private String IKurs;
+    private String IProzent;
+    private String IPunkte;
 
     private String[] name;
     private String[] isin;
@@ -27,23 +29,10 @@ public class Request {
     private String[] News;
     private String[] Href;
 
-    //Nach 18 bis 9 Uhr ist Börsenschluss; Am Samstag und Sonntag wird nicht gehandelt
-
-
-    public Request(String url){
-        this.url = url;
-
-        Thread thread2 = new Thread(){
-            public void run(){
-                DownloadIndex();
-            }
-        };
-
-        thread2.run();
-
+    public Request(String urll){
         //Setting Percent and Price from Download Site
         search = new Search();
-        search.searcheng(url);
+        search.searcheng(urll);
         price = search.getPrice();
         if((price > 0) && (price < 1)){
             price = Math.round(search.getPrice()*10000)/10000.0;
@@ -65,17 +54,11 @@ public class Request {
         Notation = search.getNotation();
         Name = search.getName();
 
-        Thread thread1 = new Thread(){
-            public void run(){
-                DownloadImage();
-            }
-        };
-
-        thread1.run();
+        DownloadImage();
     }
 
     //Downloaden der Kurse für den Index; Wird beim Start ausgeführt
-    public void IndexKurs(){
+    public void IndexKurs(String s){
         String[] tempurl = {"https://www.comdirect.de/inf/indizes/detail/werte/standard.html?_=&DETAILS_OFFSET=0&ID_NEWS=976406637&ID_NOTATION=20735&NEWS_CATEGORY=EWF&NEWS_HASH=7bcc144b757975833e2517777de78974e9043ca&OFFSET=0&SEARCH_VALUE=DE0008469008",
                             "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_INSTRUMENT=83277&REDIRECT_TYPE=SYMBOL&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=MDAX",
                             "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=6623216&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=TECDAX",
@@ -83,8 +66,69 @@ public class Request {
                             "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=35803359&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=DOW",
                             "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=35803362&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=NASDAQ+100",
                             "https://www.comdirect.de/inf/indizes/detail/werte/standard.html?ID_NOTATION=193736&REDIRECT_TYPE=WHITELISTED&REFERER=search.general&SEARCH_REDIRECT=true&SEARCH_VALUE=EUROSTOXX50"};
-        for(int i = 0; i < tempurl.length; i++) {
-            search.IndexSearch(tempurl[i], i);
+
+        if(s == "DAX"){
+            search.IndexSearch(tempurl[0]);
+
+            Kurs = search.getKurs();
+            Prozent = search.getProzent();
+            IKurs = search.getIKurs();
+            IProzent = search.getIProzent();
+            IPunkte = search.getIPunkte();
+        }
+        else if(s == "TecDAX"){
+            search.IndexSearch(tempurl[2]);
+
+            Kurs = search.getKurs();
+            Prozent = search.getProzent();
+            IKurs = search.getIKurs();
+            IProzent = search.getIProzent();
+            IPunkte = search.getIPunkte();
+        }
+        else if(s == "SDAX"){
+            search.IndexSearch(tempurl[3]);
+
+            Kurs = search.getKurs();
+            Prozent = search.getProzent();
+            IKurs = search.getIKurs();
+            IProzent = search.getIProzent();
+            IPunkte = search.getIPunkte();
+        }
+        else if(s == "MDAX"){
+            search.IndexSearch(tempurl[1]);
+
+            Kurs = search.getKurs();
+            Prozent = search.getProzent();
+            IKurs = search.getIKurs();
+            IProzent = search.getIProzent();
+            IPunkte = search.getIPunkte();
+        }
+        else if(s == "Dow"){
+            search.IndexSearch(tempurl[4]);
+
+            Kurs = search.getKurs();
+            Prozent = search.getProzent();
+            IKurs = search.getIKurs();
+            IProzent = search.getIProzent();
+            IPunkte = search.getIPunkte();
+        }
+        else if(s == "Nasdaq 100"){
+            search.IndexSearch(tempurl[5]);
+
+            Kurs = search.getKurs();
+            Prozent = search.getProzent();
+            IKurs = search.getIKurs();
+            IProzent = search.getIProzent();
+            IPunkte = search.getIPunkte();
+        }
+        else if(s == "EuroStoxx50"){
+            search.IndexSearch(tempurl[6]);
+
+            Kurs = search.getKurs();
+            Prozent = search.getProzent();
+            IKurs = search.getIKurs();
+            IProzent = search.getIProzent();
+            IPunkte = search.getIPunkte();
         }
     }
 
@@ -421,6 +465,26 @@ public class Request {
 
     public String[] getHref(){
         return Href;
+    }
+
+    public String[] getKurs(){
+        return Kurs;
+    }
+
+    public String[] getProzent(){
+        return Prozent;
+    }
+
+    public String getIKurs(){
+        return IKurs;
+    }
+
+    public String getIProzent(){
+        return IProzent;
+    }
+
+    public String getIPunkte(){
+        return IPunkte;
     }
 
 }
