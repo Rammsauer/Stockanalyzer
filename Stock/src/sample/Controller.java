@@ -171,7 +171,14 @@ public class Controller implements Initializable {
     @FXML
     private Button BAb;
 
-    @FXML Label IndexKurs;
+    @FXML
+    private Label IndexKurs;
+
+    @FXML
+    private Label IndexProzent;
+
+    @FXML
+    private Label IndexPunkte;
 
     private String AIsin = "NO0010081235";
 
@@ -1593,11 +1600,11 @@ public class Controller implements Initializable {
     }
 
     public void editPane(String s){
-        String[] Kurs;
-        String[] Prozent;
+        String[] Kurs = new String[100];
+        String[] Prozent = new String[100];
         String IKurs = "";
-        String IProzent;
-        String IPunkte;
+        String IProzent = "";
+        String IPunkte = "";
 
         DaxPane.getChildren().clear();
 
@@ -1674,7 +1681,30 @@ public class Controller implements Initializable {
             IPunkte = req.getIPunkte();
         }
 
-        IndexKurs.setText(IKurs);
+        if(IPunkte.length() < 9){
+            IndexKurs.setText(IKurs);
+        }
+        else{
+            IndexKurs.setText(IKurs.substring(0,9));
+        }
+
+        IndexProzent.setText(IProzent);
+
+        if(IPunkte.length() < 8){
+            IndexPunkte.setText(IPunkte);
+        }
+        else{
+            IndexPunkte.setText(IPunkte.substring(0,8));
+        }
+
+        if(IProzent.contains("-")){
+            IndexPunkte.setTextFill(Color.RED);
+            IndexProzent.setTextFill(Color.RED);
+        }
+        else{
+            IndexPunkte.setTextFill(Color.GREEN);
+            IndexProzent.setTextFill(Color.GREEN);
+        }
 
         DaxPane.setPrefHeight(58*size);
 
@@ -1682,7 +1712,8 @@ public class Controller implements Initializable {
             Button btn = new Button("Analyse");
             Label is = new Label("ISIN:");
             Label ks = new Label("Kurs:");
-            Label ik = new Label();
+            Label ik = new Label(Kurs[i+1]);
+            Label ip = new Label(Prozent[i+1] + " %");
             Label ksn = new Label("");
             Line trenn = new Line();
             Label ln = null;
@@ -1734,6 +1765,12 @@ public class Controller implements Initializable {
             ks.setLayoutX(5);
             ks.setLayoutY(25 + 57*i);
 
+            ik.setLayoutX(35);
+            ik.setLayoutY(25 + 57*i);
+
+            ip.setLayoutX(75);
+            ip.setLayoutY(25 + 57*i);
+
             is.setLayoutX(5);
             is.setLayoutY(47 + 57*i);
 
@@ -1745,8 +1782,8 @@ public class Controller implements Initializable {
 
             trenn.setStartX(0);
             trenn.setEndX(198);
-            trenn.setStartY(45 + 57 * i);
-            trenn.setEndY(45 + 57 * i);
+            trenn.setStartY(65 + 57 * i);
+            trenn.setEndY(65 + 57 * i);
 
             DaxPane.getChildren().add(btn);
             DaxPane.getChildren().add(ln);
@@ -1755,6 +1792,8 @@ public class Controller implements Initializable {
             DaxPane.getChildren().add(isk);
             DaxPane.getChildren().add(ksn);
             DaxPane.getChildren().add(trenn);
+            DaxPane.getChildren().add(ik);
+            DaxPane.getChildren().add(ip);
         }
     }
 

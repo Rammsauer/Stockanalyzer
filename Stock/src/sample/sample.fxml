@@ -170,12 +170,12 @@
                            </font>
                         </Label>
                         <Label layoutX="14.0" layoutY="68.0" text="Aktueller Wert" />
-                        <Label layoutX="14.0" layoutY="117.0" text="-0.92%" textFill="RED">
+                        <Label fx:id="IndexProzent" layoutX="14.0" layoutY="117.0" text="-0.92%" textFill="RED">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="96.0" layoutY="117.0" text="-113.18" textFill="RED">
+                        <Label fx:id="IndexPunkte" layoutX="96.0" layoutY="117.0" text="-113.18" textFill="RED">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>

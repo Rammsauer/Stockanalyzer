@@ -109,8 +109,8 @@ public class Search {
             Pattern Kurs = Pattern.compile("<td class=\"table__column--top\" data-label=\"Aktuell\">(.*?)</td>");
             Pattern Prozent = Pattern.compile("<td class=\"table__column--right color--cd-(.*?)\">(.*?)</td>");
             Pattern IKurs = Pattern.compile("<span class=\"realtime-indicator--value text-size--xxlarge text-weight--medium\">(.*?)</span>");
-            Pattern IProzent = Pattern.compile("<span class=\"text-size--xlarge color--cd-negative\">(.*?)</span>");
-            Pattern IPunkte = Pattern.compile("<span class=\"text-size--xlarge outer-spacing--xsmall-left-lg color--cd-negative\">(.*?)</span>");
+            Pattern IProzent = Pattern.compile("<span class=\"text-size--xlarge color--cd-(.*?)\">(.*?)</span>");
+            Pattern IPunkte = Pattern.compile("<span class=\"text-size--xlarge outer-spacing--xsmall-left-lg color--cd-(.*?)\">(.*?)</span>");
 
             Matcher m1 = Kurs.matcher(s);
             Matcher m2 = Prozent.matcher(s);
@@ -146,14 +146,14 @@ public class Search {
             }
 
             while(m4.find()){
-                String t = m4.group(1);
+                String t = m4.group(2);
                 t = t.replace(" ", "");
                 t = t.replace("&nbsp;", "");
                 n4 = t;
             }
 
             while(m5.find()){
-                String t = m5.group(1);
+                String t = m5.group(2);
                 t = t.replace(" ", "");
                 n5 = t;
             }
